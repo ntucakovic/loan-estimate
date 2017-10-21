@@ -6,31 +6,50 @@ class CreditInput extends Component {
   constructor (props) {
     super(props);
 
+    this.creditCalculationDefaultState = {
+      flatPrice: null,
+      depositTotal: null,
+      loanTotal: null,
+      monthTotal: null,
+      monthlyRate: null
+    };
+
+    // Make sure code doesn't break for referencing to undefined variables.
     this.creditCalculation = {
-      state: {
-        flatPrice: null,
-        depositTotal: null,
-        loanTotal: null,
-        monthTotal: null,
-        monthlyRate: null
-      }
+      state: this.creditCalculationDefaultState
     }
 
-    this.state = {
+    this.state = this.getDefaultState();
+  }
+
+  getDefaultState () {
+    let storageState = localStorage.getItem('creditCalculation');
+
+    if (storageState) {
+      storageState = JSON.parse(storageState);
+    }
+
+    let defaultState = {
       squareMeterPrice: null,
       flatSize: null,
       depositPercentage: 20,
       interest: 3,
       term: 30
     }
+
+    Object.assign(defaultState, this.creditCalculationDefaultState);
+
+    return storageState || defaultState;
   }
 
   updateCreditCalculation (creditCalculationProp, event) {
     this.setState({
       [creditCalculationProp]: event.target.value
     }, () => {
-      this.setState(this.creditCalculation.state.output);
-      console.log(this.creditCalculation.state.output);
+      this.setState(this.creditCalculation.state.output, () => {
+        // Update localStorage each time calculation is finished.
+        localStorage.setItem('creditCalculation', JSON.stringify(this.state));
+      });
     });
   }
 
@@ -47,6 +66,7 @@ class CreditInput extends Component {
                 <input
                   className='credit-input__input'
                   type='number' min='0' step='50'
+                  value={this.state.squareMeterPrice}
                   onChange={this.updateCreditCalculation.bind(this, 'squareMeterPrice')} />
               </td>
             </tr>
@@ -58,6 +78,7 @@ class CreditInput extends Component {
                 <input
                   className='credit-input__input'
                   type='number' min='0'
+                  value={this.state.flatSize}
                   onChange={this.updateCreditCalculation.bind(this, 'flatSize')} />
               </td>
             </tr>
@@ -68,7 +89,8 @@ class CreditInput extends Component {
               <td>
                 <input
                   className='credit-input__input'
-                  type='number' min='0' max='100' step='0.1' value={this.state.depositPercentage}
+                  type='number' min='0' max='100' step='0.1'
+                  value={this.state.depositPercentage}
                   onChange={this.updateCreditCalculation.bind(this, 'depositPercentage')} />
               </td>
             </tr>
@@ -79,7 +101,8 @@ class CreditInput extends Component {
               <td>
                 <input
                   className='credit-input__input'
-                  type='number' min='0' max='100' step='0.1' value={this.state.interest}
+                  type='number' min='0' max='100' step='0.1'
+                  value={this.state.interest}
                   onChange={this.updateCreditCalculation.bind(this, 'interest')} />
               </td>
             </tr>
@@ -90,7 +113,8 @@ class CreditInput extends Component {
               <td>
                 <input
                   className='credit-input__input'
-                  type='number' min='0' max='30' step='1' value={this.state.term}
+                  type='number' min='0' max='30' step='1'
+                  value={this.state.term}
                   onChange={this.updateCreditCalculation.bind(this, 'term')} />
               </td>
             </tr>

@@ -1,6 +1,7 @@
 {
-  "name": "credit",
+  "name": "loan-estimator",
   "version": "0.1.0",
+  "homepage": "https://loan-estimator.ntmedia.me/",
   "private": true,
   "dependencies": {
     "react": "^16.0.0",
