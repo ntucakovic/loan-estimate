@@ -1,0 +1,75 @@
+import React, { Component } from 'react';
+
+class CreditCalculation extends Component {
+  constructor (props) {
+    super(props);
+
+    this.state.output = {
+      flatPrice: null,
+      depositTotal: null,
+      loanTotal: null,
+      monthTotal: null,
+      monthlyRate: null
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    let output = this.calculateCreditOutput(nextProps);
+    this.setState(output);
+  }
+
+  calculateCreditOutput (props) {
+    let output = {};
+
+    let {
+      squareMeterPrice = null,
+      flatSize = null,
+      depositPercentage = null,
+      interest = null,
+      term = null
+    } = props;
+
+    /**
+     * Define as much of output as possible, as props arrive.
+     * That gives ability to return information as they arrive.
+     */
+    (() => {
+      if (!(squareMeterPrice && flatSize)) {
+        return;
+      }
+
+      output.flatPrice = squareMeterPrice * flatSize;
+
+      if (!depositPercentage) {
+        return;
+      }
+
+      output.depositTotal = output.flatPrice - (output.flatPrice * (depositPercentage / 100));
+      output.loanTotal = output.flatPrice - output.depositTotal;
+
+      if (!term) {
+        return;
+      }
+
+      output.monthTotal = term * 12;
+
+      if (!interest) {
+        return;
+      }
+
+      output.monthlyRate = (output.loanTotal * interest)/(1200*(1-1/(1+interest/1200)^output.monthTotal));
+    })();
+
+    return output;
+  }
+}
+
+CreditCalculation.defaultProps = {
+  squareMeterPrice: 0,
+  flatSize: 0,
+  depositPercentage: 2,
+  interest: 3,
+  term: 30,
+}
+
+export default CreditCalculation;

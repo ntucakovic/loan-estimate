@@ -1,0 +1,16 @@
+.credit-input {
+  &__table {
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  &__input {
+    border: 1px solid #ccc;
+  }
+
+  &__label {
+    cursor: pointer;
+    font-weight: bold;
+  }
+}
