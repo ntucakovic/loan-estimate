@@ -24,6 +24,7 @@ label {
 $primary-color: #2b87ce;
 $gray: #ddd;
 $gray-lighter: #eee;
+$background-color: #373f4e;
 
 input {
   width: 100%;
@@ -52,40 +53,12 @@ input {
 }
 
 .App {
-  $url: url('images/cash.jpg');
   display: flex;
   min-width: 100%;
   min-height: 100%;
-  background: $url no-repeat center right;
-  background-size: cover;
+  background-color: $background-color;
   align-items: center;
   justify-content: center;
-
-  @supports (transform: scaleX(-1)) {
-    position: relative;
-
-    &::before,
-    &::after {
-      position: absolute;
-      z-index: 0;
-      top: 0;
-      bottom: 0;
-      display: block;
-      content: '';
-      background: inherit;
-    }
-
-    &::before {
-      right: 50%;
-      left: 0;
-      transform: scaleX(-1);
-    }
-
-    &::after {
-      right: 0;
-      left: 50%;
-    }
-  }
 }
 
 @import 'Components/CreditInput/credit-input';
