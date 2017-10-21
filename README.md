@@ -7,7 +7,6 @@ Available on [loan-estimator.ntmedia.me](https://loan-estimator.ntmedia.me)
 First released mini project, part of playground series in which I'll build mini MVPs to serve useful everyday purposes.
 
 TODO:
-- Update favicons and manifest with Loan Estimator mini branding.
 - Generic version of estimator as well (w/o being tied to flats).
 - Multilingual application.
     - Based on language browser setting, easily overridable.

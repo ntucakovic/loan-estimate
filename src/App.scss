@@ -17,19 +17,36 @@ html {
   font-size: 16px;
 }
 
+body {
+  font-family: 'Quicksand', sans-serif;
+}
+
 label {
-  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+
+  @media (min-height: 768px) {
+    margin-bottom: 10px;
+  }
+
+  &:not([disabled]) {
+    cursor: pointer;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 $primary-color: #2b87ce;
 $gray: #ddd;
 $gray-lighter: #eee;
 $background-color: #373f4e;
+$input-padding: 5px;
 
 input {
   width: 100%;
-  margin-bottom: 5px;
-  padding: 5px;
+  padding: $input-padding;
   border: 0;
   outline: none;
   background: transparent;
@@ -38,7 +55,6 @@ input {
   font-weight: 300;
 
   @media (min-height: 768px) {
-    margin-bottom: 10px;
     font-size: 1.5rem;
   }
 
@@ -63,3 +79,4 @@ input {
 }
 
 @import 'Components/CreditInput/credit-input';
+@import 'Components/CreditCalculationResult/credit-calculation-result';

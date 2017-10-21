@@ -1,0 +1,20 @@
+.credit-calculation-result {
+  input {
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: padding 0.2s;
+  }
+
+  &__detail {
+    transition: opacity 0.2s;
+    opacity: 0.3;
+
+    &.is-active {
+      opacity: 1;
+
+      input {
+        padding: $input-padding;
+      }
+    }
+  }
+}

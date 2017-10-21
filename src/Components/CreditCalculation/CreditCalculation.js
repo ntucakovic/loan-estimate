@@ -4,15 +4,17 @@ class CreditCalculation extends Component {
   constructor (props) {
     super(props);
 
+    this.defaultOutputState = {
+      flatPrice: null,
+      depositTotal: null,
+      loanTotal: null,
+      monthTotal: null,
+      monthlyRate: null
+    };
+
     this.state = {
-      output: {
-        flatPrice: null,
-        depositTotal: null,
-        loanTotal: null,
-        monthTotal: null,
-        monthlyRate: null
-      }
-    }
+      output: this.defaultOutputState
+    };
   }
 
   render () {
@@ -20,7 +22,7 @@ class CreditCalculation extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    let output = this.calculateCreditOutput(nextProps);
+    let output = Object.assign({}, this.defaultOutputState, this.calculateCreditOutput(nextProps));
     this.setState({
       output: output
     });
@@ -68,7 +70,7 @@ class CreditCalculation extends Component {
       interest = interest / 1200;
 
       output.monthlyRate = Math.ceil(
-        output.loanTotal * (interest) / (1 - (Math.pow(1/(1 + (interest)), output.monthTotal)))
+        output.loanTotal * (interest) / (1 - (Math.pow(1 / (1 + (interest)), output.monthTotal)))
       );
     })();
 
@@ -81,7 +83,7 @@ CreditCalculation.defaultProps = {
   flatSize: 0,
   depositPercentage: 2,
   interest: 3,
-  term: 30,
-}
+  term: 30
+};
 
 export default CreditCalculation;

@@ -10,13 +10,4 @@ $credit-input-shadow: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   background: $credit-input-bg;
   box-shadow: 0 2px 2px $credit-input-shadow;
-
-  &__table {
-    width: 100%;
-  }
-
-  &__label {
-    cursor: pointer;
-    font-weight: bold;
-  }
 }
