@@ -9,7 +9,7 @@ class CreditCalculationResult extends Component {
       depositTotal: 'Učešće',
       loanTotal: 'Iznos kredita',
       monthlyRate: 'Mesečna rata'
-    }
+    };
   }
 
   render () {
@@ -20,20 +20,17 @@ class CreditCalculationResult extends Component {
             let title = this.titles[keyName];
             return (
               (
-                <div className='credit-calculation-result__detail'  key={keyName}>
-                  <div className='credit-calculation-result__title'>
-                    <label>{title}</label>
-                  </div>
-                  <div className='credit-calculation-result__value'>
-                    <input type="text" disabled value={this.props[keyName]}/>
-                  </div>
-                </div>
+                <label className={`credit-calculation-result__detail${this.props[keyName] ? ' is-active' : ''}`} key={keyName}>
+                  {title}
+
+                  <input className='credit-calculation-result__value' type='text' disabled value={this.props[keyName] || '-'} />
+                </label>
               )
             );
           })
         }
       </div>
-    )
+    );
   }
 }
 
@@ -43,6 +40,6 @@ CreditCalculationResult.defaultProps = {
   loanTotal: '-',
   monthTotal: '-',
   monthlyRate: '-'
-}
+};
 
 export default CreditCalculationResult;

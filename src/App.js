@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import CreditInput from './Components/CreditInput/CreditInput'
+import CreditInput from './Components/CreditInput/CreditInput';
 
 class App extends Component {
-  render() {
+  render () {
     return (
-      <div className="App">
+      <div className='App'>
         <CreditInput />
       </div>
     );

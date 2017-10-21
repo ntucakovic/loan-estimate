@@ -10,12 +10,22 @@ body,
 html {
   font-size: 16px; }
 
+body {
+  font-family: 'Quicksand', sans-serif; }
+
 label {
-  font-weight: bold; }
+  display: block;
+  margin-bottom: 5px; }
+  @media (min-height: 768px) {
+    label {
+      margin-bottom: 10px; } }
+  label:not([disabled]) {
+    cursor: pointer; }
+  label:last-child {
+    margin-bottom: 0; }
 
 input {
   width: 100%;
-  margin-bottom: 5px;
   padding: 5px;
   border: 0;
   outline: none;
@@ -25,7 +35,6 @@ input {
   font-weight: 300; }
   @media (min-height: 768px) {
     input {
-      margin-bottom: 10px;
       font-size: 1.5rem; } }
   input:focus {
     box-shadow: inset 0 -3px #2b87ce; }
@@ -51,8 +60,16 @@ input {
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3); }
-  .credit-input__table {
-    width: 100%; }
-  .credit-input__label {
-    cursor: pointer;
-    font-weight: bold; }
+
+.credit-calculation-result input {
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: padding 0.2s; }
+
+.credit-calculation-result__detail {
+  transition: opacity 0.2s;
+  opacity: 0.3; }
+  .credit-calculation-result__detail.is-active {
+    opacity: 1; }
+    .credit-calculation-result__detail.is-active input {
+      padding: 5px; }

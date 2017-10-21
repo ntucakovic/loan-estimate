@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CreditCalculation from '../CreditCalculation';
-import CreditCalculationResult from '../CreditCalculationResult/CreditCalculationResult'
+import CreditCalculationResult from '../CreditCalculationResult/CreditCalculationResult';
 
 class CreditInput extends Component {
   constructor (props) {
@@ -17,7 +17,7 @@ class CreditInput extends Component {
     // Make sure code doesn't break for referencing to undefined variables.
     this.creditCalculation = {
       state: this.creditCalculationDefaultState
-    }
+    };
 
     this.state = this.getDefaultState();
   }
@@ -35,7 +35,7 @@ class CreditInput extends Component {
       depositPercentage: 20,
       interest: 3,
       term: 30
-    }
+    };
 
     Object.assign(defaultState, this.creditCalculationDefaultState);
 
@@ -56,70 +56,56 @@ class CreditInput extends Component {
   render () {
     return (
       <div className='credit-input'>
-        <table className='credit-input__table'>
-          <tbody>
-            <tr>
-              <td><label htmlFor="squareMeterPrice" className='credit-input__label'>Cena m²</label></td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  className='credit-input__input'
-                  type='number' min='0' step='50'
-                  value={this.state.squareMeterPrice}
-                  onChange={this.updateCreditCalculation.bind(this, 'squareMeterPrice')} />
-              </td>
-            </tr>
-            <tr>
-              <td><label htmlFor="flatSize" className='credit-input__label'>Nekretnina m²</label></td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  className='credit-input__input'
-                  type='number' min='0'
-                  value={this.state.flatSize}
-                  onChange={this.updateCreditCalculation.bind(this, 'flatSize')} />
-              </td>
-            </tr>
-            <tr>
-              <td><label htmlFor="depositPercentage" className='credit-input__label'>Depozit %</label></td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  className='credit-input__input'
-                  type='number' min='0' max='100' step='0.1'
-                  value={this.state.depositPercentage}
-                  onChange={this.updateCreditCalculation.bind(this, 'depositPercentage')} />
-              </td>
-            </tr>
-            <tr>
-              <td><label htmlFor="interest" className='credit-input__label'>Kamata %</label></td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  className='credit-input__input'
-                  type='number' min='0' max='100' step='0.1'
-                  value={this.state.interest}
-                  onChange={this.updateCreditCalculation.bind(this, 'interest')} />
-              </td>
-            </tr>
-            <tr>
-              <td><label htmlFor="term" className='credit-input__label'>Period otplate (godine)</label></td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  className='credit-input__input'
-                  type='number' min='0' max='30' step='1'
-                  value={this.state.term}
-                  onChange={this.updateCreditCalculation.bind(this, 'term')} />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <label htmlFor='squareMeterPrice' className='credit-input__label'>
+          Cena m²
+
+          <input
+            id='squareMeterPrice'
+            className='credit-input__input'
+            type='number' min='0' step='50'
+            value={this.state.squareMeterPrice}
+            onChange={this.updateCreditCalculation.bind(this, 'squareMeterPrice')} />
+        </label>
+        <label htmlFor='flatSize' className='credit-input__label'>
+          Nekretnina m²
+
+          <input
+            id='flatSize'
+            className='credit-input__input'
+            type='number' min='0'
+            value={this.state.flatSize}
+            onChange={this.updateCreditCalculation.bind(this, 'flatSize')} />
+        </label>
+        <label htmlFor='depositPercentage' className='credit-input__label'>
+          Depozit %
+
+          <input
+            id='depositPercentage'
+            className='credit-input__input'
+            type='number' min='0' max='100' step='0.1'
+            value={this.state.depositPercentage}
+            onChange={this.updateCreditCalculation.bind(this, 'depositPercentage')} />
+        </label>
+        <label htmlFor='interest' className='credit-input__label'>
+          Kamata %
+
+          <input
+            id='interest'
+            className='credit-input__input'
+            type='number' min='0' max='100' step='0.1'
+            value={this.state.interest}
+            onChange={this.updateCreditCalculation.bind(this, 'interest')} />
+        </label>
+        <label htmlFor='term' className='credit-input__label'>
+          Period otplate (godine)
+
+          <input
+            id='term'
+            className='credit-input__input'
+            type='number' min='0' max='30' step='1'
+            value={this.state.term}
+            onChange={this.updateCreditCalculation.bind(this, 'term')} />
+        </label>
 
         <CreditCalculation
           ref={(creditCalculation) => { this.creditCalculation = creditCalculation; }}
@@ -138,7 +124,7 @@ class CreditInput extends Component {
           monthTotal={this.state.monthTotal}
           monthlyRate={this.state.monthlyRate} />
       </div>
-    )
+    );
   }
 }
 
