@@ -1,12 +1,18 @@
-.credit-input {
-  &__table {
-    padding: 20px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.9);
-  }
+$credit-input-bg: rgba(255, 255, 255, 0.95);
+$credit-input-shadow: rgba(0, 0, 0, 0.3);
 
-  &__input {
-    border: 1px solid #ccc;
+.credit-input {
+  position: relative;
+  z-index: 1;
+  width: 90vw;
+  max-width: 300px;
+  padding: 15px;
+  border-radius: 10px;
+  background: $credit-input-bg;
+  box-shadow: 0 2px 2px $credit-input-shadow;
+
+  &__table {
+    width: 100%;
   }
 
   &__label {

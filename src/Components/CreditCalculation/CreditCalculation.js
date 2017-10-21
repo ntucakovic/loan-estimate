@@ -1,21 +1,29 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 class CreditCalculation extends Component {
   constructor (props) {
     super(props);
 
-    this.state.output = {
-      flatPrice: null,
-      depositTotal: null,
-      loanTotal: null,
-      monthTotal: null,
-      monthlyRate: null
+    this.state = {
+      output: {
+        flatPrice: null,
+        depositTotal: null,
+        loanTotal: null,
+        monthTotal: null,
+        monthlyRate: null
+      }
     }
+  }
+
+  render () {
+    return null;
   }
 
   componentWillReceiveProps (nextProps) {
     let output = this.calculateCreditOutput(nextProps);
-    this.setState(output);
+    this.setState({
+      output: output
+    });
   }
 
   calculateCreditOutput (props) {
@@ -44,7 +52,7 @@ class CreditCalculation extends Component {
         return;
       }
 
-      output.depositTotal = output.flatPrice - (output.flatPrice * (depositPercentage / 100));
+      output.depositTotal = output.flatPrice * (depositPercentage / 100);
       output.loanTotal = output.flatPrice - output.depositTotal;
 
       if (!term) {
@@ -57,7 +65,11 @@ class CreditCalculation extends Component {
         return;
       }
 
-      output.monthlyRate = (output.loanTotal * interest)/(1200*(1-1/(1+interest/1200)^output.monthTotal));
+      interest = interest / 1200;
+
+      output.monthlyRate = Math.ceil(
+        output.loanTotal * (interest) / (1 - (Math.pow(1/(1 + (interest)), output.monthTotal)))
+      );
     })();
 
     return output;
