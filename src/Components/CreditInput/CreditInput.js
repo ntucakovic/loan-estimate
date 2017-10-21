@@ -20,10 +20,12 @@ class CreditInput extends Component {
     };
 
     this.state = this.getDefaultState();
+
+    this.updateCreditCalculation.bind(this);
   }
 
   getDefaultState () {
-    let storageState = localStorage.getItem('creditCalculation');
+    let storageState = window.localStorage.getItem('creditCalculation');
 
     if (storageState) {
       storageState = JSON.parse(storageState);
@@ -42,13 +44,13 @@ class CreditInput extends Component {
     return storageState || defaultState;
   }
 
-  updateCreditCalculation (creditCalculationProp, event) {
+  updateCreditCalculation (event, creditCalculationProp) {
     this.setState({
       [creditCalculationProp]: event.target.value
     }, () => {
       this.setState(this.creditCalculation.state.output, () => {
         // Update localStorage each time calculation is finished.
-        localStorage.setItem('creditCalculation', JSON.stringify(this.state));
+        window.localStorage.setItem('creditCalculation', JSON.stringify(this.state));
       });
     });
   }
@@ -64,7 +66,7 @@ class CreditInput extends Component {
             className='credit-input__input'
             type='number' min='0' step='50'
             value={this.state.squareMeterPrice}
-            onChange={this.updateCreditCalculation.bind(this, 'squareMeterPrice')} />
+            onChange={(event) => { this.updateCreditCalculation(event, 'squareMeterPrice'); }} />
         </label>
         <label htmlFor='flatSize' className='credit-input__label'>
           Nekretnina m²
@@ -74,7 +76,7 @@ class CreditInput extends Component {
             className='credit-input__input'
             type='number' min='0'
             value={this.state.flatSize}
-            onChange={this.updateCreditCalculation.bind(this, 'flatSize')} />
+            onChange={(event) => { this.updateCreditCalculation(event, 'flatSize'); }} />
         </label>
         <label htmlFor='depositPercentage' className='credit-input__label'>
           Depozit %
@@ -84,7 +86,7 @@ class CreditInput extends Component {
             className='credit-input__input'
             type='number' min='0' max='100' step='0.1'
             value={this.state.depositPercentage}
-            onChange={this.updateCreditCalculation.bind(this, 'depositPercentage')} />
+            onChange={(event) => { this.updateCreditCalculation(event, 'depositPercentage'); }} />
         </label>
         <label htmlFor='interest' className='credit-input__label'>
           Kamata %
@@ -94,7 +96,7 @@ class CreditInput extends Component {
             className='credit-input__input'
             type='number' min='0' max='100' step='0.1'
             value={this.state.interest}
-            onChange={this.updateCreditCalculation.bind(this, 'interest')} />
+            onChange={(event) => { this.updateCreditCalculation(event, 'interest'); }} />
         </label>
         <label htmlFor='term' className='credit-input__label'>
           Period otplate (godine)
@@ -104,7 +106,7 @@ class CreditInput extends Component {
             className='credit-input__input'
             type='number' min='0' max='30' step='1'
             value={this.state.term}
-            onChange={this.updateCreditCalculation.bind(this, 'term')} />
+            onChange={(event) => { this.updateCreditCalculation(event, 'term'); }} />
         </label>
 
         <CreditCalculation
