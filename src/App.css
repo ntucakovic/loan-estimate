@@ -37,19 +37,28 @@ input {
     input {
       font-size: 1.5rem; } }
   input:focus {
-    box-shadow: inset 0 -3px #2b87ce; }
+    box-shadow: inset 0 -3px #0c84bb; }
   input[disabled] {
+    color: #0c84bb;
     border-radius: 5px;
-    background: #eee;
+    background: transparent;
     box-shadow: inset 0 -1px #eee; }
 
 .App {
   display: flex;
   min-width: 100%;
   min-height: 100%;
-  background-color: #373f4e;
+  background-color: #0c84bb;
   align-items: center;
   justify-content: center; }
+  .App::before {
+    position: fixed;
+    width: calc(100vw * 1.3);
+    height: calc(100vh * 1.3);
+    content: '';
+    transform: rotate(-5deg);
+    background-color: #02141d;
+    box-shadow: inset 0 calc(43vh) #0c84bb; }
 
 .credit-input {
   position: relative;

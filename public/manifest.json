@@ -3,7 +3,7 @@
 	"name": "Loan Estimator - NT Playground Series",
 	"start_url": "./?utm_source=homescreen",
 	"display": "standalone",
-	"theme_color": "#b0bac0",
+	"theme_color": "#0c84bb",
 	"background_color": "#fff",
 	"orientation": "portrait",
 	"icons": [
