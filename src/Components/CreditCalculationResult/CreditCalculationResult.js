@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import LocalizedStrings from 'react-localization';
 
 class CreditCalculationResult extends Component {
   constructor (props) {
     super(props);
 
-    this.titles = {
-      flatPrice: 'Cena nekretnine',
-      depositTotal: 'Učešće',
-      loanTotal: 'Iznos kredita',
-      monthlyRate: 'Mesečna rata'
-    };
+    this.strings = this.props.localizedStrings;
   }
 
   render () {
     return (
       <div className='credit-calculation-result'>
         {
-          Object.keys(this.titles).map((keyName) => {
-            let title = this.titles[keyName];
+          Object.keys(CreditCalculationResult.defaultProps).map((keyName) => {
+            let title = this.strings[keyName];
             return (
               (
                 <label className={`credit-calculation-result__detail${this.props[keyName] ? ' is-active' : ''}`} key={keyName}>
@@ -34,11 +31,14 @@ class CreditCalculationResult extends Component {
   }
 }
 
+CreditCalculationResult.propTypes = {
+  localizedStrings: PropTypes.instanceOf(LocalizedStrings),
+};
+
 CreditCalculationResult.defaultProps = {
   flatPrice: '-',
   depositTotal: '-',
   loanTotal: '-',
-  monthTotal: '-',
   monthlyRate: '-'
 };
 

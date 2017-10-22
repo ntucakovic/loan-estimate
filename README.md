@@ -9,6 +9,8 @@ First released mini project, part of playground series in which I'll build mini 
 TODO:
 - Generic version of estimator as well (w/o being tied to flats).
 - Multilingual application.
-    - Based on language browser setting, easily overridable.
-- Generate varieties from base calculation.
+    - ~~Simple translation with predefined strings.~~
+    - ~~Based on language browser settings.~~
+    - Easily overridable.
+- Generate variations from base calculation.
 - Save generated entries in local storage so you can reach all of them later on (currently only saving last entries).
