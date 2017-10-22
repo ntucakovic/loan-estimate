@@ -3,10 +3,13 @@ import './App.css';
 import CreditInput from './Components/CreditInput/CreditInput';
 import LocalizedStrings from 'react-localization';
 import strings from './Components/Localization';
+import RepositoryLink from './Components/RepositoryLink/RepositoryLink';
 
 class App extends Component {
   constructor (props) {
     super(props);
+
+    this.repositoryLink = 'https://github.com/ntucakovic/loan-estimate';
 
     this.strings = App.generateLocalizedStrings();
     this.strings.setLanguage(App.getLanguage());
@@ -39,6 +42,7 @@ class App extends Component {
     return (
       <div className='App'>
         <CreditInput localizedStrings={this.strings} />
+        <RepositoryLink href={this.repositoryLink} />
       </div>
     );
   }

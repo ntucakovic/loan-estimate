@@ -1,0 +1,59 @@
+$repository-icon-sm: 24px;
+$repository-icon-md: 36px;
+
+.repository-link {
+  position: fixed;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+
+  a {
+    position: relative;
+    z-index: 2;
+    display: block;
+    box-sizing: content-box;
+    width: $repository-icon-sm;
+    height: $repository-icon-sm;
+    padding: 15px;
+    transition: transform 0.5s;
+    transform: translate(20%, 20%);
+
+    @media (min-width: $screen-md-min) {
+      width: $repository-icon-md;
+      height: $repository-icon-md;
+    }
+
+    &:focus,
+    &:hover {
+      transform: translate(0, 0);
+
+      + .repository-link__background {
+        transform: translate(-50%, -50%) rotate(-30deg);
+      }
+    }
+  }
+
+  &__background {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    box-sizing: content-box;
+    width: 1000%;
+    height: 100%;
+    padding: 15px 0;
+    transition: transform 0.5s;
+    transform: translate(-42%, -42%) rotate(-45deg);
+    background-color: $color-accent;
+
+    @media (min-width: $screen-md-min) {
+      padding: 25px 0;
+    }
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: $color-dark;
+  }
+}
