@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import LocalizedStrings from 'react-localization';
 import CreditCalculation from '../CreditCalculation';
 import CreditCalculationResult from '../CreditCalculationResult/CreditCalculationResult';
 
@@ -20,6 +22,7 @@ class CreditInput extends Component {
     };
 
     this.state = this.getDefaultState();
+    this.strings = this.props.localizedStrings;
 
     this.updateCreditCalculation.bind(this);
   }
@@ -32,8 +35,8 @@ class CreditInput extends Component {
     }
 
     let defaultState = {
-      squareMeterPrice: null,
-      flatSize: null,
+      squareMeterPrice: '',
+      flatSize: '',
       depositPercentage: 20,
       interest: 3,
       term: 30
@@ -59,7 +62,7 @@ class CreditInput extends Component {
     return (
       <div className='credit-input'>
         <label htmlFor='squareMeterPrice' className='credit-input__label'>
-          Cena m²
+          {this.strings.squareMeterPrice}
 
           <input
             id='squareMeterPrice'
@@ -69,7 +72,7 @@ class CreditInput extends Component {
             onChange={(event) => { this.updateCreditCalculation(event, 'squareMeterPrice'); }} />
         </label>
         <label htmlFor='flatSize' className='credit-input__label'>
-          Nekretnina m²
+          {this.strings.flatSize}
 
           <input
             id='flatSize'
@@ -79,7 +82,7 @@ class CreditInput extends Component {
             onChange={(event) => { this.updateCreditCalculation(event, 'flatSize'); }} />
         </label>
         <label htmlFor='depositPercentage' className='credit-input__label'>
-          Depozit %
+          {this.strings.depositPercentage}
 
           <input
             id='depositPercentage'
@@ -89,7 +92,7 @@ class CreditInput extends Component {
             onChange={(event) => { this.updateCreditCalculation(event, 'depositPercentage'); }} />
         </label>
         <label htmlFor='interest' className='credit-input__label'>
-          Kamata %
+          {this.strings.interest}
 
           <input
             id='interest'
@@ -99,7 +102,7 @@ class CreditInput extends Component {
             onChange={(event) => { this.updateCreditCalculation(event, 'interest'); }} />
         </label>
         <label htmlFor='term' className='credit-input__label'>
-          Period otplate (godine)
+          {this.strings.term}
 
           <input
             id='term'
@@ -120,6 +123,7 @@ class CreditInput extends Component {
         />
 
         <CreditCalculationResult
+          localizedStrings={this.props.localizedStrings}
           flatPrice={this.state.flatPrice}
           depositTotal={this.state.depositTotal}
           loanTotal={this.state.loanTotal}
@@ -129,5 +133,9 @@ class CreditInput extends Component {
     );
   }
 }
+
+CreditInput.propTypes = {
+  localizedStrings: PropTypes.instanceOf(LocalizedStrings)
+};
 
 export default CreditInput;
