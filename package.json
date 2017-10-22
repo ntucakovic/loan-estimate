@@ -7,6 +7,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-inlinesvg": "^0.6.2",
     "react-localization": "^0.1.2",
     "react-scripts": "1.0.14"
   },

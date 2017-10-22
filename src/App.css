@@ -82,3 +82,45 @@ input {
     opacity: 1; }
     .credit-calculation-result__detail.is-active input {
       padding: 5px; }
+
+.repository-link {
+  position: fixed;
+  z-index: 2;
+  right: 0;
+  bottom: 0; }
+  .repository-link a {
+    position: relative;
+    z-index: 2;
+    display: block;
+    box-sizing: content-box;
+    width: 24px;
+    height: 24px;
+    padding: 15px;
+    transition: transform 0.5s;
+    transform: translate(20%, 20%); }
+    @media (min-width: 576px) {
+      .repository-link a {
+        width: 36px;
+        height: 36px; } }
+    .repository-link a:focus, .repository-link a:hover {
+      transform: translate(0, 0); }
+      .repository-link a:focus + .repository-link__background, .repository-link a:hover + .repository-link__background {
+        transform: translate(-50%, -50%) rotate(-30deg); }
+  .repository-link__background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    box-sizing: content-box;
+    width: 1000%;
+    height: 100%;
+    padding: 15px 0;
+    transition: transform 0.5s;
+    transform: translate(-42%, -42%) rotate(-45deg);
+    background-color: #0c84bb; }
+    @media (min-width: 576px) {
+      .repository-link__background {
+        padding: 25px 0; } }
+  .repository-link svg {
+    width: 100%;
+    height: 100%;
+    fill: #02141d; }
