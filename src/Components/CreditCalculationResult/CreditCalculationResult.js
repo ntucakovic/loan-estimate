@@ -32,7 +32,7 @@ class CreditCalculationResult extends Component {
 }
 
 CreditCalculationResult.propTypes = {
-  localizedStrings: PropTypes.instanceOf(LocalizedStrings),
+  localizedStrings: PropTypes.instanceOf(LocalizedStrings)
 };
 
 CreditCalculationResult.defaultProps = {

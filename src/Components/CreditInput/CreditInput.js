@@ -27,6 +27,10 @@ class CreditInput extends Component {
     this.updateCreditCalculation.bind(this);
   }
 
+  componentDidMount () {
+    this.creditCalculation.calculateCreditOutput(this.creditCalculation.props);
+  }
+
   getDefaultState () {
     let storageState = window.localStorage.getItem('creditCalculation');
 
