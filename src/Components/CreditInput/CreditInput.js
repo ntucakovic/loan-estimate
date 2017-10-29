@@ -140,8 +140,9 @@ class CreditInput extends Component {
       <VariationsLink key='variations-link' localizedStrings={this.props.localizedStrings} ready={!!this.state.monthlyRate} />,
       <Variations
         id='variations'
-        localizedStrings={this.props.localizedStrings}
+        key='variations'
 
+        localizedStrings={this.props.localizedStrings}
         ready={!!this.state.monthlyRate}
 
         squareMeterPrice={this.state.squareMeterPrice}

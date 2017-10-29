@@ -1,0 +1,159 @@
+$variations-bg: #fff;
+$table-cell-color: #999fa2;
+
+.variations-result {
+  position: absolute;
+  top: 120vh;
+  left: 0;
+  width: 100%;
+  background-color: $variations-bg;
+
+  @media (min-width: $screen-lg-min) {
+    padding: 10px;
+  }
+
+  &__variable {
+    @media (max-width: ($screen-lg-min - 1)) {
+      margin-bottom: 10px;
+      padding: 10px 0;
+      text-align: center;
+      background-color: #f5f5f5;
+      font-size: 1.2rem;
+      font-weight: bold;
+
+      span {
+        color: $color-dark;
+      }
+
+      &::before {
+        display: inline-block;
+        margin-right: 0.5rem;
+        content: attr(data-prefix);
+        color: $color-dark;
+      }
+    }
+
+    span {
+      &:last-child {
+        @media (max-width: ($screen-lg-min - 1)) {
+          display: block;
+        }
+      }
+    }
+  }
+
+  tr {
+    @media (max-width: ($screen-lg-min - 1)) {
+      &:not(:first-child) {
+        margin-top: 10px;
+        border-top: 1px solid #ccc;
+
+        .variations-result__variable {
+          &::before,
+          span:first-child {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.variations-result__table {
+  position: relative;
+  z-index: 1;
+  display: block;
+  overflow-x: auto;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  border-collapse: collapse;
+
+  td {
+    color: $table-cell-color;
+  }
+
+  @media (max-width: ($screen-lg-min - 1)) {
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    thead {
+      display: none;
+    }
+
+    tbody,
+    tr,
+    td {
+      display: block;
+    }
+
+    td {
+      &[data-column] {
+        &::before {
+          display: inline-block;
+          width: 50%;
+          padding-right: 5px;
+          content: attr(data-column);
+          text-align: right;
+          color: $color-accent;
+        }
+      }
+    }
+  }
+
+  @media (min-width: $screen-lg-min) {
+    tr {
+      &:first-child {
+        td {
+          padding-top: 10px;
+        }
+      }
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+
+    td,
+    th {
+      $width: 80 / 9;
+
+      &:first-child {
+        width: 20%;
+        min-width: 220px;
+        padding: 0 5px;
+      }
+
+      &:not(:first-child) {
+        width: unquote('#{$width}%');
+      }
+    }
+
+    td {
+      line-height: 1.4rem;
+
+      &:first-child {
+        color: $color-accent;
+      }
+
+      &:not(:first-child) {
+        text-align: center;
+      }
+    }
+
+    th {
+      padding: 5px 0;
+      border-bottom: 2px solid #eee;
+      line-height: 1.4em;
+      font-size: 1.1rem;
+
+      &:first-child {
+        text-align: left;
+      }
+    }
+  }
+}
+

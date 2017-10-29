@@ -12,6 +12,7 @@ class VariationsResult extends Component {
     };
 
     this.skipRounding = ['monthlyRate', 'term'];
+    this.columnOrder = ['squareMeterPrice', 'flatSize', 'depositPercentage', 'interest', 'term', 'flatPrice', 'depositTotal', 'loanTotal', 'monthlyRate'];
   }
 
   get variations () {
@@ -42,7 +43,7 @@ class VariationsResult extends Component {
 
   render () {
     const headings = [
-      <td>{this.props.localizedStrings.variable}</td>
+      <th>{this.props.localizedStrings.variable}</th>
     ];
 
     let tableContent = [];
@@ -51,22 +52,24 @@ class VariationsResult extends Component {
       const rows = [];
       Object.entries(amounts).forEach(([amount, variation]) => {
         let row = [
-          <td>
-            {this.props.localizedStrings[variableName]} {VariationsResult.getHumanPercentage(amount)}
+          <td className='variations-result__variable' data-prefix={this.props.localizedStrings.variable}>
+            <span>{this.props.localizedStrings[variableName]} </span>
+            <span>{VariationsResult.getHumanPercentage(amount)}</span>
           </td>
         ];
-        Object.entries(Object.assign({}, variation.result, variation.props)).forEach(([propName, value]) => {
+        let columns = Object.assign({}, variation.result, variation.props);
+        this.columnOrder.forEach((column) => {
           if (!headingsSet) {
             headings.push(
-              <td>
-                {this.props.localizedStrings[propName]}
-              </td>
+              <th>
+                {this.props.localizedStrings[`${column}Short`] || this.props.localizedStrings[column]}
+              </th>
             );
           }
 
           row.push(
-            <td>
-              {this.getValidNumber(propName, value)}
+            <td data-column={this.props.localizedStrings[column]}>
+              {this.getValidNumber(column, columns[column])}
             </td>
           );
         });
@@ -90,18 +93,16 @@ class VariationsResult extends Component {
 
     tableContent.forEach((table) => {
       tables.push(
-        <div>
-          <table className='table' style={{color: '#fff'}}>
-            <thead>
-              <tr>
-                {headings}
-              </tr>
-            </thead>
-            <tbody>
-              {table.rows}
-            </tbody>
-          </table>
-        </div>
+        <table className='variations-result__table'>
+          <thead>
+            <tr>
+              {headings}
+            </tr>
+          </thead>
+          <tbody>
+            {table.rows}
+          </tbody>
+        </table>
       );
     });
 

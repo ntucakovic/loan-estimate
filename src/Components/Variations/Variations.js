@@ -11,7 +11,7 @@ class Variations extends Component {
     this.variationProperties = ['squareMeterPrice', 'flatSize', 'depositPercentage', 'interest'];
 
     // 100 / (1 / (X-1))
-    this.variationsIncrements = [0.80, 0.85, 0.90, 0.95, 1, 1.05, 1.10, 1.15, 1.20];
+    this.variationsIncrements = [0.80, 0.85, 0.90, 0.95, 1.05, 1.10, 1.15, 1.20];
 
     this.defaultVariations = {};
     this.variationProperties.forEach((property) => {
@@ -88,6 +88,7 @@ class Variations extends Component {
         result: this[key].getResult()
       };
     });
+
     this.variationsResult.variations = results;
   }
 
@@ -97,7 +98,7 @@ class Variations extends Component {
     });
 
     return (
-      <div>
+      <div className='variations-result'>
         {variations}
 
         <VariationsResult
