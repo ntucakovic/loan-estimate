@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import LocalizedStrings from 'react-localization';
 import CreditCalculation from '../CreditCalculation';
 import CreditCalculationResult from '../CreditCalculationResult/CreditCalculationResult';
+import VariationsLink from '../Variations/VariationsLink/VariationsLink';
+import Variations from '../Variations/Variations';
 
 class CreditInput extends Component {
   constructor (props) {
@@ -63,8 +65,8 @@ class CreditInput extends Component {
   }
 
   render () {
-    return (
-      <div className='credit-input'>
+    return [
+      <div className='credit-input' key='credit-input'>
         <label htmlFor='squareMeterPrice' className='credit-input__label'>
           {this.strings.squareMeterPrice}
 
@@ -128,13 +130,26 @@ class CreditInput extends Component {
 
         <CreditCalculationResult
           localizedStrings={this.props.localizedStrings}
+
           flatPrice={this.state.flatPrice}
           depositTotal={this.state.depositTotal}
           loanTotal={this.state.loanTotal}
           monthTotal={this.state.monthTotal}
           monthlyRate={this.state.monthlyRate} />
-      </div>
-    );
+      </div>,
+      <VariationsLink key='variations-link' localizedStrings={this.props.localizedStrings} ready={!!this.state.monthlyRate} />,
+      <Variations
+        id='variations'
+        localizedStrings={this.props.localizedStrings}
+
+        ready={!!this.state.monthlyRate}
+
+        squareMeterPrice={this.state.squareMeterPrice}
+        flatSize={this.state.flatSize}
+        depositPercentage={this.state.depositPercentage}
+        interest={this.state.interest}
+        term={this.state.term} />
+    ];
   }
 }
 

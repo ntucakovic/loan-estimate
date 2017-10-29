@@ -8,7 +8,10 @@ const strings = {
     flatPrice: 'Real estate price',
     depositTotal: 'Deposit total',
     loanTotal: 'Loan total',
-    monthlyRate: 'Monthly rate'
+    monthlyRate: 'Monthly rate',
+    monthTotal: 'No. months',
+    variable: 'Variable',
+    viewVariations: 'View credit variations'
   },
   sr: {
     squareMeterPrice: 'Cena m²',
@@ -19,7 +22,10 @@ const strings = {
     flatPrice: 'Cena nekretnine',
     depositTotal: 'Učešće',
     loanTotal: 'Iznos kredita',
-    monthlyRate: 'Mesečna rata'
+    monthlyRate: 'Mesečna rata',
+    monthTotal: 'Ukupno meseci',
+    variable: 'Promenljiva',
+    viewVariations: 'Pogledaj varijacije kredita'
   }
 };
 

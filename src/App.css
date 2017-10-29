@@ -46,11 +46,14 @@ input {
 
 .App {
   display: flex;
+  flex-direction: column;
   min-width: 100%;
   min-height: 100%;
   background-color: #0c84bb;
   align-items: center;
   justify-content: center; }
+  .App > * {
+    z-index: 1; }
   .App::before {
     position: fixed;
     width: calc(100vw * 1.3);
@@ -124,3 +127,9 @@ input {
     width: 100%;
     height: 100%;
     fill: #02141d; }
+
+.variations-link {
+  margin-top: 10px; }
+  .variations-link__link {
+    text-decoration: none;
+    color: #0c84bb; }

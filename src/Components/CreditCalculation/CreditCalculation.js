@@ -13,8 +13,17 @@ class CreditCalculation extends Component {
     };
 
     this.state = {
-      output: this.defaultOutputState
+      output: this.calculateCreditOutput(props)
     };
+  }
+
+  getInputs () {
+    let { ref, ...input } = this.props;
+    return input;
+  }
+
+  getResult () {
+    return this.state.output;
   }
 
   render () {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import LocalizedStrings from 'react-localization';
+import { numberFormat } from '../../NumberFormat';
 
 class CreditCalculationResult extends Component {
   constructor (props) {
@@ -15,12 +16,16 @@ class CreditCalculationResult extends Component {
         {
           Object.keys(CreditCalculationResult.defaultProps).map((keyName) => {
             let title = this.strings[keyName];
+            let value = '-';
+            if (this.props[keyName]) {
+              value = numberFormat(this.props[keyName], Math.round(this.props[keyName]) === parseFloat(this.props[keyName]) ? 0 : 2);
+            }
             return (
               (
                 <label className={`credit-calculation-result__detail${this.props[keyName] ? ' is-active' : ''}`} key={keyName}>
                   {title}
 
-                  <input className='credit-calculation-result__value' type='text' disabled value={this.props[keyName] || '-'} />
+                  <input className='credit-calculation-result__value' type='text' disabled value={value} />
                 </label>
               )
             );
