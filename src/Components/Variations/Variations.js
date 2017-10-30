@@ -8,7 +8,7 @@ class Variations extends Component {
   constructor (props) {
     super(props);
 
-    this.variationProperties = ['squareMeterPrice', 'flatSize', 'depositPercentage', 'interest'];
+    this.variationProperties = ['squareMeterPrice', 'flatSize', 'interest'];
 
     // 100 / (1 / (X-1))
     this.variationsIncrements = [0.80, 0.85, 0.90, 0.95, 1.05, 1.10, 1.15, 1.20];
@@ -93,12 +93,16 @@ class Variations extends Component {
   }
 
   render () {
+    if (!this.state.variations || !Object.keys(this.state.variations).length) {
+      return null;
+    }
+
     const variations = Object.keys(this.state.variations).map((key) => {
       return this.state.variations[key];
     });
 
     return (
-      <div className='variations-result'>
+      <div id='variations' className='variations-result'>
         {variations}
 
         <VariationsResult

@@ -41,9 +41,29 @@ class VariationsResult extends Component {
     return Math.round(100 / (1 / (number - 1))) + '%';
   }
 
+  toggleVariationTable (e) {
+    let tableId = e.target.id.replace('btn-', 'table-');
+
+    let table = document.getElementById(tableId);
+    table.parentNode.childNodes.forEach((sibling) => {
+      sibling.classList.remove('is-active');
+    });
+    table.classList.add('is-active');
+
+    let button = e.target;
+    button.parentNode.childNodes.forEach((sibling) => {
+      sibling.classList.remove('is-active');
+    });
+    button.classList.add('is-active');
+  }
+
   render () {
+    if (!this.state.variations || !Object.keys(this.state.variations).length) {
+      return null;
+    }
+
     const headings = [
-      <th>{this.props.localizedStrings.variable}</th>
+      <th />
     ];
 
     let tableContent = [];
@@ -52,9 +72,9 @@ class VariationsResult extends Component {
       const rows = [];
       Object.entries(amounts).forEach(([amount, variation]) => {
         let row = [
-          <td className='variations-result__variable' data-prefix={this.props.localizedStrings.variable}>
-            <span>{this.props.localizedStrings[variableName]} </span>
-            <span>{VariationsResult.getHumanPercentage(amount)}</span>
+          <td className='variations-result__variable' data-prefix={`${this.props.localizedStrings.variable}: ${this.props.localizedStrings[variableName]}`}>
+            <span>{this.props.localizedStrings[amount < 1 ? 'decreasedBy' : 'increasedBy']} </span>
+            <span>{ VariationsResult.getHumanPercentage(amount).replace('-', '') }</span>
           </td>
         ];
         let columns = Object.assign({}, variation.result, variation.props);
@@ -91,23 +111,42 @@ class VariationsResult extends Component {
 
     let tables = [];
 
-    tableContent.forEach((table) => {
+    for (let i = 0; i < tableContent.length; i++) {
       tables.push(
-        <table className='variations-result__table'>
+        <table id={`table-${tableContent[i].variableName}`} className={`variations-result__table${i === 0 ? ' is-active': ''}`}>
           <thead>
             <tr>
               {headings}
             </tr>
           </thead>
           <tbody>
-            {table.rows}
+            {tableContent[i].rows}
           </tbody>
         </table>
       );
-    });
+    }
+
+    const buttons = ((keys) => {
+      let array = [];
+
+      for (let i = 0; i < keys.length; i++) {
+        array.push(
+          <button id={`btn-${keys[i]}`} className={`tabs__button ${i === 0 ? 'is-active' : ''}`}
+            onClick={this.toggleVariationTable}>
+            {this.props.localizedStrings[keys[i]]}
+          </button>
+        );
+      }
+
+      return array;
+    })(Object.keys(this.state.variations));
 
     return (
-      <div>
+      <div className='variations-result__wrapper'>
+        <div className='variations-result__tabs'>
+          <label htmlFor='btn-squareMeterPrice'>{this.props.localizedStrings['chooseModifierPlaceholder']}</label>
+          {buttons}
+        </div>
         {tables}
       </div>
     );

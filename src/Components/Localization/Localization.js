@@ -13,7 +13,10 @@ const strings = {
     monthlyRate: 'Monthly rate',
     monthTotal: 'No. months',
     variable: 'Variable',
-    viewVariations: 'View credit variations'
+    viewVariations: 'View credit variations',
+    chooseModifierPlaceholder: 'Select a modifier',
+    decreasedBy: 'Decreased by',
+    increasedBy: 'Increased by'
   },
   sr: {
     squareMeterPrice: 'Cena m²',
@@ -29,7 +32,10 @@ const strings = {
     monthlyRate: 'Mesečna rata',
     monthTotal: 'Ukupno meseci',
     variable: 'Promenljiva',
-    viewVariations: 'Pogledaj varijacije kredita'
+    viewVariations: 'Pogledaj varijacije kredita',
+    chooseModifierPlaceholder: 'Izaberi modifikator',
+    decreasedBy: 'Umanjeno za',
+    increasedBy: 'Povećano za'
   }
 };
 
