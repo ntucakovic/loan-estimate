@@ -19,6 +19,11 @@
     border-radius: $component-border-radius;
     background: $component-background;
     box-shadow: $component-box-shadow;
+    flex-grow: 1;
+
+    @media ($screen-md-min-y) {
+      flex-grow: 0;
+    }
   }
 
   > * {
