@@ -53,20 +53,24 @@ body,
   position: relative;
   width: 100%; }
   .credit-input__cta {
-    position: sticky;
     bottom: 0;
     left: 0;
     margin-bottom: -20px;
     padding: 15px 0; }
-  .credit-input button {
+    .credit-input__cta--add {
+      position: sticky; }
+  .credit-input__button {
     display: block;
     width: 100%;
     height: 40px;
     color: #fff;
     border: 0;
     border-radius: 10px;
-    background-color: #0c84bb;
     line-height: 40px; }
+    .credit-input__button--add {
+      background-color: #0c84bb; }
+    .credit-input__button--remove {
+      background-color: #ff6347; }
 
 .credit-calculation-result input {
   padding-top: 0;

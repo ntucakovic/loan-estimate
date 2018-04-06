@@ -47,36 +47,6 @@ class AppProvider extends React.Component {
     return calculations['draft'];
   }
 
-  updateCalculation = (calculationId = null) => {
-    return (event) => {
-      const calculationKey = calculationId || 'draft';
-
-      let { ...calculation } = this.getCalculation(calculationId);
-      let { calculations = {} } = this.state;
-
-      const target = event.target;
-      const name = target.name;
-      const value = target.value;
-
-      calculation[name] = value || 0;
-
-      const result = CreditCalculation.getRates(calculation);
-
-      calculation = Object.assign({}, calculation, result);
-
-      // Update existing calculation.
-      calculations = Object.assign(
-        {},
-        { ...calculations },
-        { [calculationKey]: calculation }
-      );
-
-      this.setState({
-        calculations
-      }, this.updateLocalStorage);
-    };
-  }
-
   saveCalculation = (calculationId = null) => {
     return () => {
       // Get current calculation state.
@@ -96,13 +66,61 @@ class AppProvider extends React.Component {
       calculation.name = name;
 
       // Update existing calculations.
-      const newCalculations = Object.assign({},
+      calculations = Object.assign({},
+        // Add previous calculations.
         { ...calculations },
+        // Add new calculation.
         { [calculationId]: calculation },
+        // Override draft calculation.
         { ...AppProvider.DEFAULT_STATE.calculations }
       );
 
-      this.setState({ calculations: newCalculations }, () => {
+      this.setState({ calculations }, () => {
+        this.updateLocalStorage() && this.context.router.history.push('/');
+      });
+    };
+  }
+
+  updateCalculation = (calculationId = null) => {
+    return (event) => {
+      const calculationKey = calculationId || 'draft';
+
+      let { ...calculation } = this.getCalculation(calculationId);
+      let { calculations = {} } = this.state;
+
+      const target = event.target;
+      const name = target.name;
+      const value = target.value;
+
+      calculation[name] = value || 0;
+
+      const result = CreditCalculation.getRates(calculation);
+
+      calculation = Object.assign({}, calculation, result);
+
+      // Update existing calculation.
+      calculations = Object.assign({},
+        // Add previous calculations.
+        { ...calculations },
+        // Update existing calculation.
+        { [calculationKey]: calculation }
+      );
+
+      this.setState({
+        calculations
+      }, this.updateLocalStorage);
+    };
+  }
+
+  removeCalculation = (calculationId = null) => {
+    return () => {
+      let { calculations = {} } = this.state;
+
+      if (calculations.hasOwnProperty(calculationId)) {
+        delete calculations[calculationId];
+      }
+
+      this.setState({ calculations }, () => {
         this.updateLocalStorage() && this.context.router.history.push('/');
       });
     };
@@ -122,8 +140,9 @@ class AppProvider extends React.Component {
         calculations: this.state.calculations,
 
         getCalculation: this.getCalculation,
-        updateCalculation: this.updateCalculation,
-        saveCalculation: this.saveCalculation
+        saveCalculation: this.saveCalculation,
+        removeCalculation: this.removeCalculation,
+        updateCalculation: this.updateCalculation
       }}>
         {this.props.children}
       </AppContext.Provider>

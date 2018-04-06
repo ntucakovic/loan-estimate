@@ -12,16 +12,36 @@ class CreditInputPage extends React.Component {
     router: PropTypes.object
   }
 
-  showSaveCalculation = (calculation) => {
-    return calculation && !calculation.id && calculation.monthlyRate;
+  static ADD_ACTION = 'ADD_ACTION';
+  static REMOVE_ACTION = 'REMOVE_ACTION';
+
+  getAvailableAction = (calculation) => {
+    if (calculation && !calculation.id && calculation.monthlyRate) {
+      return CreditInputPage.ADD_ACTION;
+    }
+
+    if (calculation && calculation.id) {
+      return CreditInputPage.REMOVE_ACTION;
+    }
   }
 
   render () {
     return (
       <AppContext.Consumer>
-        {({ localization, calculations, getCalculation, updateCalculation, saveCalculation }) => {
+        {({ localization, calculations, getCalculation, saveCalculation, updateCalculation, removeCalculation }) => {
           const activeCalculationId = this.props.match.params.calculation || null;
           const calculation = getCalculation(activeCalculationId);
+          const action = this.getAvailableAction(calculation);
+
+          let actionModifier = '';
+          switch (action) {
+            case CreditInputPage.ADD_ACTION:
+              actionModifier = 'add';
+              break;
+            case CreditInputPage.REMOVE_ACTION:
+              actionModifier = 'remove';
+              break;
+          }
 
           let savedCalculations = {};
           Object.keys(calculations).map((id) => {
@@ -54,12 +74,19 @@ class CreditInputPage extends React.Component {
                     localization={localization}
                     calculation={calculation} />
 
-                  {this.showSaveCalculation(calculation) && (
-                    <div className='credit-input__cta'>
-                      <button
-                        onClick={saveCalculation(activeCalculationId)}>{calculation.id ? localization.saveCalculationChanges : localization.saveCalculation}</button>
-                    </div>
-                  )}
+                  <div className={`credit-input__cta credit-input__cta--${actionModifier}`}>
+                    {action === CreditInputPage.ADD_ACTION && (
+                      <button className={`credit-input__button credit-input__button--${actionModifier}`} onClick={saveCalculation(activeCalculationId)}>
+                        {calculation.id ? localization.saveCalculationChanges : localization.saveCalculation}
+                      </button>
+                    )}
+
+                    {action === CreditInputPage.REMOVE_ACTION && (
+                      <button className={`credit-input__button credit-input__button--${actionModifier}`} onClick={removeCalculation(activeCalculationId)}>
+                        {calculation.id ? localization.saveCalculationChanges : localization.saveCalculation}
+                      </button>
+                    )}
+                  </div>
                 </CreditInput>
               </div>
             </React.Fragment>
