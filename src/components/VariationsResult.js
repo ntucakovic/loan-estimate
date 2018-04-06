@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import LocalizedStrings from 'react-localization';
-import { numberFormat } from '../../NumberFormat';
+import { numberFormat } from '../NumberFormat';
 
 class VariationsResult extends Component {
-  constructor (props) {
+  constructor (props, context) {
     super(props);
 
     this.state = {
@@ -13,6 +11,8 @@ class VariationsResult extends Component {
 
     this.skipRounding = ['monthlyRate', 'term'];
     this.columnOrder = ['squareMeterPrice', 'flatSize', 'depositPercentage', 'interest', 'term', 'flatPrice', 'depositTotal', 'loanTotal', 'monthlyRate'];
+
+    this.localization = context.localization;
   }
 
   get variations () {
@@ -72,8 +72,8 @@ class VariationsResult extends Component {
       const rows = [];
       Object.entries(amounts).forEach(([amount, variation]) => {
         let row = [
-          <td className='variations-result__variable' data-prefix={`${this.props.localizedStrings.variable}: ${this.props.localizedStrings[variableName]}`}>
-            <span>{this.props.localizedStrings[amount < 1 ? 'decreasedBy' : 'increasedBy']} </span>
+          <td className='variations-result__variable' data-prefix={`${this.localization.variable}: ${this.localization[variableName]}`}>
+            <span>{this.localization[amount < 1 ? 'decreasedBy' : 'increasedBy']} </span>
             <span>{ VariationsResult.getHumanPercentage(amount).replace('-', '') }</span>
           </td>
         ];
@@ -82,13 +82,13 @@ class VariationsResult extends Component {
           if (!headingsSet) {
             headings.push(
               <th>
-                {this.props.localizedStrings[`${column}Short`] || this.props.localizedStrings[column]}
+                {this.localization[`${column}Short`] || this.localization[column]}
               </th>
             );
           }
 
           row.push(
-            <td data-column={this.props.localizedStrings[column]}>
+            <td data-column={this.localization[column]}>
               {this.getValidNumber(column, columns[column])}
             </td>
           );
@@ -133,7 +133,7 @@ class VariationsResult extends Component {
         array.push(
           <button id={`btn-${keys[i]}`} className={`tabs__button ${i === 0 ? 'is-active' : ''}`}
             onClick={this.toggleVariationTable}>
-            {this.props.localizedStrings[keys[i]]}
+            {this.localization[keys[i]]}
           </button>
         );
       }
@@ -144,7 +144,7 @@ class VariationsResult extends Component {
     return (
       <div className='variations-result__wrapper'>
         <div className='variations-result__tabs'>
-          <label htmlFor='btn-squareMeterPrice'>{this.props.localizedStrings['chooseModifierPlaceholder']}</label>
+          <label htmlFor='btn-squareMeterPrice'>{this.localization.chooseModifierPlaceholder}</label>
           {buttons}
         </div>
         {tables}
@@ -152,9 +152,5 @@ class VariationsResult extends Component {
     );
   }
 }
-
-VariationsResult.propTypes = {
-  localizedStrings: PropTypes.instanceOf(LocalizedStrings)
-};
 
 export default VariationsResult;

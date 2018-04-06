@@ -1,3 +1,5 @@
+import LocalizedStrings from 'react-localization';
+
 const strings = {
   en: {
     squareMeterPrice: 'Price per square',
@@ -16,7 +18,10 @@ const strings = {
     viewVariations: 'View credit variations',
     chooseModifierPlaceholder: 'Select a modifier',
     decreasedBy: 'Decreased by',
-    increasedBy: 'Increased by'
+    increasedBy: 'Increased by',
+    saveCalculation: 'Save calculation',
+    saveCalculationChanges: 'Save calculation changes',
+    chooseCalculationName: 'Enter calculation alias, for easier recognition'
   },
   sr: {
     squareMeterPrice: 'Cena m²',
@@ -35,8 +40,11 @@ const strings = {
     viewVariations: 'Pogledaj varijacije kredita',
     chooseModifierPlaceholder: 'Izaberi modifikator',
     decreasedBy: 'Umanjeno za',
-    increasedBy: 'Povećano za'
+    increasedBy: 'Povećano za',
+    saveCalculation: 'Sačuvaj kalkulaciju',
+    saveCalculationChanges: 'Sačuvaj izmene kalkulacije',
+    chooseCalculationName: 'Unesite naziv kalkulacije, kako biste je lakše pronašli'
   }
 };
 
-export default strings;
+export default new LocalizedStrings(strings);

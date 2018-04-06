@@ -1,34 +1,22 @@
 import React, { Component } from 'react';
 import './App.css';
-import CreditInput from './Components/CreditInput/CreditInput';
-import LocalizedStrings from 'react-localization';
-import strings from './Components/Localization';
-import RepositoryLink from './Components/RepositoryLink/RepositoryLink';
+import CreditInput from './components/CreditInput';
+import RepositoryLink from './components/RepositoryLink';
 
 class App extends Component {
   constructor (props) {
     super(props);
 
     this.repositoryLink = 'https://github.com/ntucakovic/loan-estimate';
-
-    this.strings = App.generateLocalizedStrings();
-    this.strings.setLanguage(App.getLanguage());
-  }
-
-  static generateLocalizedStrings () {
-    return new LocalizedStrings(strings);
-  }
-
-  static checkPreferredLanguages (language) {
-    return language.match(/(sr|bs|hr)/);
   }
 
   static getLanguage () {
+    const translationRegex = /(sr|bs|hr)/;
     let language = 'en';
 
     try {
-      if (window.navigator.language.match(/(sr|bs|hr)/) ||
-        (window.navigator.languages && window.navigator.languages.find(App.checkPreferredLanguages))) {
+      if (window.navigator.language.match(translationRegex) ||
+        (window.navigator.languages && window.navigator.languages.find((language) => language.match(translationRegex)))) {
         language = 'sr';
       }
     } catch (e) {
@@ -41,7 +29,7 @@ class App extends Component {
   render () {
     return (
       <div className='App'>
-        <CreditInput localizedStrings={this.strings} />
+        <CreditInput />
         <RepositoryLink href={this.repositoryLink} />
       </div>
     );

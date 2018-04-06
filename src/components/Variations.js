@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import VariationsResult from '../VariationsResult';
-import CreditCalculation from '../CreditCalculation';
-import LocalizedStrings from 'react-localization';
+import VariationsResult from './VariationsResult';
 
 class Variations extends Component {
   constructor (props) {
@@ -37,17 +35,7 @@ class Variations extends Component {
   }
 
   createCreditCalculation (props, refKey) {
-    return (
-      <CreditCalculation
-        key={refKey}
-        ref={(creditCalculation) => { this[refKey] = creditCalculation; }}
-
-        squareMeterPrice={props.squareMeterPrice}
-        flatSize={props.flatSize}
-        depositPercentage={props.depositPercentage}
-        interest={props.interest}
-        term={props.term} />
-    );
+    return null;
   }
 
   generateVariations (props) {
@@ -106,15 +94,13 @@ class Variations extends Component {
         {variations}
 
         <VariationsResult
-          ref={(variationsResult) => { this.variationsResult = variationsResult; }}
-          localizedStrings={this.props.localizedStrings} />
+          ref={(variationsResult) => { this.variationsResult = variationsResult; }} />
       </div>
     );
   }
 }
 
 Variations.propTypes = {
-  localizedStrings: PropTypes.instanceOf(LocalizedStrings),
   ready: PropTypes.bool,
   squareMeterPrice: PropTypes.any,
   flatSize: PropTypes.any,

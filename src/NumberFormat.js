@@ -1,10 +1,10 @@
 /**
- * @param integer number: Number
- * @param integer n: length of decimal
- * @param integer x: length of sections
+ * @param number {number}
+ * @param n {number} length of decimal
+ * @param x {number} length of sections
  */
-export function numberFormat (number, n, x) {
+export function numberFormat (number, n = 2, x = 3) {
   number = Math.round(Number(number) * 1e2) / 1e2;
-    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
-    return number.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,');
+  const re = '\\d(?=(\\d{' + x + '})+' + (n > 0 ? '\\.' : '$') + ')';
+  return number.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,');
 }
