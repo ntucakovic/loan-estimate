@@ -79,13 +79,13 @@ class CreditInputPage extends React.Component {
                   <div className={`credit-input__cta credit-input__cta--${actionModifier}`}>
                     {action === CreditInputPage.ADD_ACTION && (
                       <button className={`credit-input__button credit-input__button--${actionModifier}`} onClick={saveCalculation(activeCalculationId)}>
-                        {calculation.id ? localization.saveCalculationChanges : localization.saveCalculation}
+                        {localization.saveCalculation}
                       </button>
                     )}
 
                     {action === CreditInputPage.REMOVE_ACTION && (
                       <button className={`credit-input__button credit-input__button--${actionModifier}`} onClick={removeCalculation(activeCalculationId)}>
-                        {calculation.id ? localization.saveCalculationChanges : localization.saveCalculation}
+                        {localization.deleteCalculation}
                       </button>
                     )}
                   </div>

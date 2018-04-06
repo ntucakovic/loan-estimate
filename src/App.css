@@ -37,6 +37,14 @@ input {
     background: transparent;
     box-shadow: inset 0 -1px #eee; }
 
+button {
+  height: 40px;
+  border: 0;
+  border-radius: 10px;
+  font-family: "Quicksand", "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 40px; }
+
 html {
   font-size: 16px; }
 
@@ -62,11 +70,7 @@ body,
   .credit-input__button {
     display: block;
     width: 100%;
-    height: 40px;
-    color: #fff;
-    border: 0;
-    border-radius: 10px;
-    line-height: 40px; }
+    color: #fff; }
     .credit-input__button--add {
       background-color: #0c84bb; }
     .credit-input__button--remove {
