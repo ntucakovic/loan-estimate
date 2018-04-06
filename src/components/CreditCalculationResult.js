@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { numberFormat } from '../NumberFormat';
-import { AppContext } from '../AppContext';
+import { numberFormat } from '../modules/helperFunctions';
 
 class CreditCalculationResult extends Component {
   render () {
@@ -17,7 +16,8 @@ class CreditCalculationResult extends Component {
 
             const propValue = calculation[key];
             if (propValue) {
-              value = numberFormat(propValue, Math.round(propValue) === parseInt(propValue) ? 0 : 2);
+              const decimals = (Math.round(propValue) === parseInt(propValue, 10)) ? 0 : 2;
+              value = numberFormat(propValue, decimals);
             }
 
             return (

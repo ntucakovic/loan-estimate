@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { numberFormat } from '../NumberFormat';
+import { numberFormat } from '../modules/helperFunctions';
 
 class Calculations extends React.Component {
   handleNavLinkClick (event) {

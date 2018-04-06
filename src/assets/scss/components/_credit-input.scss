@@ -8,8 +8,8 @@ $credit-input-btn-height: 40px;
     position: sticky;
     bottom: 0;
     left: 0;
-    margin-bottom: -20px;
-    padding: $component-spacing 0;
+    margin-bottom: -#{$component-spacing};
+    padding: $component-padding 0;
   }
 
   button {

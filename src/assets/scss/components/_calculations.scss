@@ -1,9 +1,9 @@
 .calculations {
-  width: 90vw;
+  width: $app-width;
   max-width: $app-max-width;
   border-radius: $component-border-radius;
-  background-color: $white;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  background-color: $component-background;
+  box-shadow: $component-box-shadow;
   flex-shrink: 0;
 
   &,

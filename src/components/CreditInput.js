@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
-
-import { AppContext } from '../AppContext';
 
 class CreditInput extends Component {
   static DEFAULT_PARAMETERS = {

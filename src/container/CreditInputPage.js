@@ -30,6 +30,8 @@ class CreditInputPage extends React.Component {
             if (current.id) {
               savedCalculations[current.id] = current;
             }
+
+            return id;
           });
 
           if (activeCalculationId && !calculation) {

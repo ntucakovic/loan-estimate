@@ -2,11 +2,11 @@
   input {
     padding-top: 0;
     padding-bottom: 0;
-    transition: padding 0.2s;
+    transition: padding $transition-duration-base;
   }
 
   &__detail {
-    transition: opacity 0.2s;
+    transition: opacity $transition-duration-base;
     opacity: 0.3;
 
     &.is-active {

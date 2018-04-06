@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import localization from './components/Localization';
-import App from './App';
+import localization from './modules/Localization';
 import { repository } from './modules/data';
+import { getLanguage } from './modules/helperFunctions';
 import CreditCalculation from './modules/CreditCalculation';
+
 import CreditInput from './components/CreditInput';
-import { withRouter } from 'react-router';
 
 const AppContext = React.createContext();
 
@@ -26,7 +26,7 @@ class AppProvider extends React.Component {
     super(props);
 
     // Set language.
-    localization.setLanguage(App.getLanguage());
+    localization.setLanguage(getLanguage());
 
     const creditCalculationsStorage = window.localStorage.getItem(AppProvider.LOCAL_STORAGE_KEY);
     const creditCalculations = JSON.parse(creditCalculationsStorage) || { calculations: {} };
@@ -135,6 +135,4 @@ AppProvider.propTypes = {
   children: PropTypes.any
 };
 
-const AppProviderWithRouter = withRouter(AppProvider);
-
-export { AppProviderWithRouter, AppProvider, AppContext };
+export { AppProvider, AppContext };
