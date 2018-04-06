@@ -4,8 +4,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AppProvider } from '../AppContext';
 import { repository } from '../modules/data';
 
-import CreditInputPage from '../container/CreditInputPage';
-import RepositoryLink from './RepositoryLink';
+import CreditInputPage from './CreditInputPage';
+import RepositoryLink from '../components/RepositoryLink';
 
 const AppRouter = () => (
   <React.Fragment>

@@ -33,7 +33,7 @@ class CreditInputPage extends React.Component {
           const calculation = getCalculation(activeCalculationId);
           const action = this.getAvailableAction(calculation);
 
-          let actionModifier = '';
+          let actionModifier;
           switch (action) {
             case CreditInputPage.ADD_ACTION:
               actionModifier = 'add';
@@ -41,6 +41,8 @@ class CreditInputPage extends React.Component {
             case CreditInputPage.REMOVE_ACTION:
               actionModifier = 'remove';
               break;
+            default:
+              actionModifier = '';
           }
 
           let savedCalculations = {};
