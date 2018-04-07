@@ -66,7 +66,7 @@ class CreditInputPage extends React.Component {
           return (
             <React.Fragment>
               {Object.keys(savedCalculations).length !== 0 && (
-                <Calculations calculations={savedCalculations} />
+                <Calculations calculations={savedCalculations} localization={localization} />
               )}
 
               <div className='app__scroll'>

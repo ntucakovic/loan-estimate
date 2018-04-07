@@ -10,7 +10,7 @@ const strings = {
     totalAmount: 'Real estate value',
     depositTotal: 'Deposit total',
     loanTotal: 'Loan total',
-    monthlyRate: 'Payment details',
+    monthlyRate: 'Payoff',
     monthTotal: 'No. months',
     months: 'months',
     saveCalculation: 'Save calculation',

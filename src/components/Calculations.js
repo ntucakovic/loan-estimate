@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { numberFormat } from '../modules/helperFunctions';
+import CreditCalculationResult from './CreditCalculationResult'
 
 class Calculations extends React.Component {
   handleNavLinkClick (event) {
@@ -19,7 +20,7 @@ class Calculations extends React.Component {
   }
 
   render () {
-    const { calculations = {} } = this.props;
+    const { calculations = {}, localization } = this.props;
 
     return (
       <div className='calculations'>
@@ -33,7 +34,18 @@ class Calculations extends React.Component {
             return (
               <NavLink to={`/calculations/${calculation.id}`} key={key} activeClassName='is-active' className={`calculations__item`} onClick={this.handleNavLinkClick}>
                 <h2>{calculation.name}</h2>
-                <p>{numberFormat(calculation.totalAmount)} + {calculation.interest}%</p>
+                <p>
+                  {(() => {
+                    const rate = CreditCalculationResult.getPropValue(calculation.monthlyRate);
+                    const months = CreditCalculationResult.getPropValue(calculation.monthTotal);
+
+                    if (rate !== '-' && months !== '-') {
+                      return `${localization.monthlyRate}: ${rate} x ${months} ${localization.months}`;
+                    }
+
+                    return '-';
+                  })()}
+                </p>
               </NavLink>
             );
           })}
@@ -44,6 +56,7 @@ class Calculations extends React.Component {
 }
 
 Calculations.propTypes = {
+  localization: PropTypes.object,
   calculations: PropTypes.shape()
 };
 

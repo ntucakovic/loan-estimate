@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { numberFormat } from '../modules/helperFunctions';
 
 class CreditCalculationResult extends Component {
-  getPropValue = (propValue) => {
+  static getPropValue = (propValue) => {
     let value = '-';
 
     if (propValue) {
@@ -24,27 +24,27 @@ class CreditCalculationResult extends Component {
         <div className='credit-input__field-group credit-input__field-group--md-up'>
           <label className={`credit-calculation-result__detail ${totalAmount ? 'is-active' : ''}`}>
             {localization.totalAmount}
-            <input className='credit-calculation-result__value' type='text' disabled value={this.getPropValue(totalAmount)} />
+            <input className='credit-calculation-result__value' type='text' disabled value={CreditCalculationResult.getPropValue(totalAmount)} />
           </label>
 
           <label className={`credit-calculation-result__detail ${loanTotal ? 'is-active' : ''}`}>
             {localization.loanTotal}
-            <input className='credit-calculation-result__value' type='text' disabled value={this.getPropValue(loanTotal)} />
+            <input className='credit-calculation-result__value' type='text' disabled value={CreditCalculationResult.getPropValue(loanTotal)} />
           </label>
 
           <label className={`credit-calculation-result__detail ${depositTotal ? 'is-active' : ''}`}>
             {localization.depositTotal}
-            <input className='credit-calculation-result__value' type='text' disabled value={this.getPropValue(depositTotal)} />
+            <input className='credit-calculation-result__value' type='text' disabled value={CreditCalculationResult.getPropValue(depositTotal)} />
           </label>
         </div>
         <label className={`credit-calculation-result__detail ${monthlyRate ? 'is-active' : ''}`}>
           {localization.monthlyRate}
           <input className='credit-calculation-result__value' type='text' disabled value={(() => {
-            const rate = this.getPropValue(monthlyRate);
-            const months = this.getPropValue(monthTotal);
+            const rate = CreditCalculationResult.getPropValue(monthlyRate);
+            const months = CreditCalculationResult.getPropValue(monthTotal);
 
             if (rate !== '-' && months !== '-') {
-              return `${this.getPropValue(monthlyRate)} x ${this.getPropValue(monthTotal)} ${localization.months}`;
+              return `${rate} x ${months} ${localization.months}`;
             }
 
             return '-';
