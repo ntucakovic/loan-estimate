@@ -34,11 +34,15 @@ class Share extends React.Component {
   }
 
   render () {
-    const { url, title, hashtags, hashtag, via } = this.props;
+    const { url, title, hashtags, hashtag, via, localization } = this.props;
     const { iconSize } = this.state;
 
     return (
       <div className='share'>
+        <span className='share__label' style={{
+          lineHeight: `${iconSize}px`
+        }}>{localization.share}</span>
+
         <FacebookShareButton quote={title} url={url} hashtag={hashtag}>
           <FacebookIcon size={iconSize} round />
         </FacebookShareButton>
@@ -51,7 +55,7 @@ class Share extends React.Component {
           <LinkedinIcon size={iconSize} round />
         </LinkedinShareButton>
       </div>
-    )
+    );
   }
 }
 
@@ -60,7 +64,8 @@ Share.propTypes = {
   title: PropTypes.string,
   via: PropTypes.string,
   hashtag: PropTypes.string,
-  hashtags: PropTypes.array
+  hashtags: PropTypes.array,
+  localization: PropTypes.object
 };
 
 export default Share;

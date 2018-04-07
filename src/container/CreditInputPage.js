@@ -103,7 +103,7 @@ class CreditInputPage extends React.Component {
                   )}
                 </CreditInput>
               </div>
-              <Share {...share} />
+              <Share {...share} localization={localization} />
             </React.Fragment>
           );
         }}

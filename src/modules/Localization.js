@@ -10,13 +10,14 @@ const strings = {
     totalAmount: 'Real estate value',
     depositTotal: 'Deposit total',
     loanTotal: 'Loan total',
-    monthlyRate: 'Payoff',
+    monthlyRate: 'Payoff details',
     monthTotal: 'No. months',
     months: 'months',
     saveCalculation: 'Save calculation',
     deleteCalculation: 'Delete calculation',
     saveCalculationChanges: 'Save calculation changes',
-    chooseCalculationName: 'Enter calculation alias, for easier recognition'
+    chooseCalculationName: 'Enter calculation alias, for easier recognition',
+    share: 'Share on: '
   },
   sr: {
     squareMeterPrice: 'Cena po m²',
@@ -27,13 +28,14 @@ const strings = {
     totalAmount: 'Vrednost nekretnine',
     depositTotal: 'Učešće',
     loanTotal: 'Iznos kredita',
-    monthlyRate: 'Otplata',
+    monthlyRate: 'Detalji otplate',
     monthTotal: 'Ukupno meseci',
     months: 'meseci',
     saveCalculation: 'Sačuvaj kalkulaciju',
     deleteCalculation: 'Obriši kalkulaciju',
     saveCalculationChanges: 'Sačuvaj izmene kalkulacije',
-    chooseCalculationName: 'Unesite naziv kalkulacije, kako biste je lakše pronašli'
+    chooseCalculationName: 'Unesite naziv kalkulacije, kako biste je lakše pronašli',
+    share: 'Podeli na: '
   }
 };
 

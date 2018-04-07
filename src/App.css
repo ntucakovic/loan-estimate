@@ -252,6 +252,8 @@ body,
   display: flex; }
   .share > * {
     margin: 0 10px; }
+  .share__label {
+    color: #fff; }
 
 .app {
   display: flex;
