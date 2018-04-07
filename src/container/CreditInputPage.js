@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AppContext } from '../AppContext';
+import { Redirect } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
 
+import { AppContext } from '../AppContext';
 import CreditInput from '../components/CreditInput';
 import CreditCalculationResult from '../components/CreditCalculationResult';
 import Calculations from '../components/Calculations';
-import { Redirect } from 'react-router-dom';
 
 class CreditInputPage extends React.Component {
   static contextTypes = {
@@ -32,6 +33,7 @@ class CreditInputPage extends React.Component {
           const activeCalculationId = this.props.match.params.calculation || null;
           const calculation = getCalculation(activeCalculationId);
           const action = this.getAvailableAction(calculation);
+          const showAdd = (action === CreditInputPage.ADD_ACTION);
 
           let actionModifier;
           switch (action) {
@@ -43,6 +45,7 @@ class CreditInputPage extends React.Component {
               break;
             default:
               actionModifier = '';
+              break;
           }
 
           let savedCalculations = {};
@@ -76,19 +79,28 @@ class CreditInputPage extends React.Component {
                     localization={localization}
                     calculation={calculation} />
 
-                  <div className={`credit-input__cta credit-input__cta--${actionModifier}`}>
-                    {action === CreditInputPage.ADD_ACTION && (
-                      <button className={`credit-input__button credit-input__button--${actionModifier}`} onClick={saveCalculation(activeCalculationId)}>
-                        {localization.saveCalculation}
-                      </button>
+                  <CSSTransition
+                    in={showAdd}
+                    classNames={'message'}
+                    timeout={300}
+                    mountOnEnter
+                    unmountOnExit>
+                    {state => (
+                      <div className={`credit-input__cta credit-input__cta--add`}>
+                        <button key='add' className={`credit-input__button credit-input__button--add ${state}`} onClick={saveCalculation(activeCalculationId)}>
+                          {localization.saveCalculation}
+                        </button>
+                      </div>
                     )}
+                  </CSSTransition>
 
-                    {action === CreditInputPage.REMOVE_ACTION && (
-                      <button className={`credit-input__button credit-input__button--${actionModifier}`} onClick={removeCalculation(activeCalculationId)}>
+                  {action === CreditInputPage.REMOVE_ACTION && (
+                    <div className={`credit-input__cta credit-input__cta--remove`}>
+                      <button key={actionModifier} className={`credit-input__button credit-input__button--remove`} onClick={removeCalculation(activeCalculationId)}>
                         {localization.deleteCalculation}
                       </button>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </CreditInput>
               </div>
             </React.Fragment>

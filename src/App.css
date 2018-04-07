@@ -63,16 +63,25 @@ body,
   .credit-input__cta {
     bottom: 0;
     left: 0;
-    margin-bottom: -20px;
+    margin-bottom: -15px;
     padding: 15px 0; }
     .credit-input__cta--add {
       position: sticky; }
   .credit-input__button {
     display: block;
     width: 100%;
+    transition: opacity 0.2s, transform 0.2s;
     color: #fff; }
     .credit-input__button--add {
       background-color: #0c84bb; }
+      .credit-input__button--add, .credit-input__button--add.exiting, .credit-input__button--add.exited {
+        transform: translateY(20px);
+        opacity: 0; }
+      .credit-input__button--add.exited {
+        pointer-events: none; }
+      .credit-input__button--add.entering, .credit-input__button--add.entered {
+        transform: translateY(0);
+        opacity: 1; }
     .credit-input__button--remove {
       background-color: #ff6347; }
 

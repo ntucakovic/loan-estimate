@@ -5,7 +5,7 @@
   &__cta {
     bottom: 0;
     left: 0;
-    margin-bottom: -#{$component-spacing};
+    margin-bottom: -#{$component-padding};
     padding: $component-padding 0;
 
     &--add {
@@ -16,10 +16,28 @@
   &__button {
     display: block;
     width: 100%;
+    transition: opacity $transition-duration-base, transform $transition-duration-base;
     color: $white;
 
     &--add {
       background-color: $color-accent;
+
+      &,
+      &.exiting,
+      &.exited {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      &.exited {
+        pointer-events: none;
+      }
+
+      &.entering,
+      &.entered {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     &--remove {
