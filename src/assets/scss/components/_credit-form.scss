@@ -1,37 +1,7 @@
-$credit-input-label-prefix-width: 18px;
-
 .credit-input {
   position: relative;
   width: 100%;
   padding-bottom: 15px;
-
-  &__label {
-    position: relative;
-
-    span {
-      white-space: nowrap;
-    }
-
-    &--with-prefix {
-      &::before {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: $credit-input-label-prefix-width;
-        padding: $input-padding;
-        content: attr(data-prefix);
-        font-size: $input-font-size;
-
-        @media (min-height: $screen-md-min-y) {
-          line-height: $input-font-size-md-min-y;
-        }
-      }
-
-      input {
-        padding-left: $input-padding + $credit-input-label-prefix-width;
-      }
-    }
-  }
 
   &__cta {
     bottom: 0;
@@ -87,34 +57,6 @@ $credit-input-label-prefix-width: 18px;
 
     &--remove {
       background-color: $color-danger;
-    }
-  }
-
-  &__field-group {
-    display: flex;
-
-    > * {
-      &:not(:last-child) {
-        margin-right: 10px;
-      }
-    }
-
-    &--md-up {
-      display: block;
-
-      > * {
-        margin-right: 0;
-      }
-
-      @media (min-width: $screen-md-min) {
-        display: flex;
-
-        > * {
-          &:not(:last-child) {
-            margin-right: 10px;
-          }
-        }
-      }
     }
   }
 }

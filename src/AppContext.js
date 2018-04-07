@@ -1,20 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import getSymbolFromCurrency from 'currency-symbol-map';
 
 import localization from './modules/Localization';
 import { repository } from './modules/data';
 import { getLanguage } from './modules/helperFunctions';
 import CreditCalculation from './modules/CreditCalculation';
 
-import CreditInput from './components/CreditInput';
+import CreditForm from './components/CreditForm';
 
 const AppContext = React.createContext();
 
 class AppProvider extends React.Component {
   static DEFAULT_STATE = {
     calculations: {
-      draft: { ...CreditInput.DEFAULT_PARAMETERS }
-    }
+      draft: { ...CreditForm.DEFAULT_PARAMETERS }
+    },
+    currency: null
   };
 
   static LOCAL_STORAGE_KEY = 'CREDIT_CALCULATIONS';
@@ -28,13 +30,14 @@ class AppProvider extends React.Component {
     // Set language.
     localization.setLanguage(getLanguage());
 
-    const creditCalculationsStorage = window.localStorage.getItem(AppProvider.LOCAL_STORAGE_KEY);
-    const creditCalculations = JSON.parse(creditCalculationsStorage) || { calculations: {} };
+    const storage = window.localStorage.getItem(AppProvider.LOCAL_STORAGE_KEY);
+    const storageJson = JSON.parse(storage) || { calculations: {} };
 
     // Merge local storage calculations with draft one.
-    const calculations = Object.assign({}, { ...AppProvider.DEFAULT_STATE.calculations }, { ...creditCalculations.calculations });
+    const calculations = Object.assign({}, { ...AppProvider.DEFAULT_STATE.calculations }, { ...storageJson.calculations });
+    const { defaultCurrency = null } = storageJson;
 
-    this.state = { calculations };
+    this.state = { calculations, defaultCurrency };
   }
 
   getCalculation = (calculationId) => {
@@ -126,9 +129,17 @@ class AppProvider extends React.Component {
     };
   }
 
+  setDefaultCurrency = (currencyInput) => {
+    const currency = getSymbolFromCurrency(currencyInput);
+
+    if (currency) {
+      this.setState({ defaultCurrency: currencyInput }, this.updateLocalStorage);
+    }
+  }
+
   updateLocalStorage = () => {
-    const { calculations = {} } = this.state;
-    window.localStorage.setItem(AppProvider.LOCAL_STORAGE_KEY, JSON.stringify({ calculations }));
+    const { calculations = {}, defaultCurrency } = this.state;
+    window.localStorage.setItem(AppProvider.LOCAL_STORAGE_KEY, JSON.stringify({ calculations, defaultCurrency }));
   }
 
   render () {
@@ -142,7 +153,10 @@ class AppProvider extends React.Component {
         getCalculation: this.getCalculation,
         saveCalculation: this.saveCalculation,
         removeCalculation: this.removeCalculation,
-        updateCalculation: this.updateCalculation
+        updateCalculation: this.updateCalculation,
+
+        defaultCurrency: this.state.defaultCurrency,
+        setDefaultCurrency: this.setDefaultCurrency
       }}>
         {this.props.children}
       </AppContext.Provider>
