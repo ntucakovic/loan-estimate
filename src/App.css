@@ -251,7 +251,6 @@ body,
 .share {
   display: flex; }
   .share > * {
-    height: 32px;
     margin: 0 10px; }
 
 .app {
