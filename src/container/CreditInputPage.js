@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { CSSTransition } from 'react-transition-group';
+import { Transition } from 'react-transition-group';
 
 import { AppContext } from '../AppContext';
 import CreditInput from '../components/CreditInput';
@@ -79,12 +79,10 @@ class CreditInputPage extends React.Component {
                     localization={localization}
                     calculation={calculation} />
 
-                  <CSSTransition
+                  <Transition
                     in={showAdd}
-                    classNames={'message'}
                     timeout={300}
-                    mountOnEnter
-                    unmountOnExit>
+                    mountOnEnter>
                     {state => (
                       <div className={`credit-input__cta credit-input__cta--add`}>
                         <button key='add' className={`credit-input__button credit-input__button--add ${state}`} onClick={saveCalculation(activeCalculationId)}>
@@ -92,7 +90,7 @@ class CreditInputPage extends React.Component {
                         </button>
                       </div>
                     )}
-                  </CSSTransition>
+                  </Transition>
 
                   {action === CreditInputPage.REMOVE_ACTION && (
                     <div className={`credit-input__cta credit-input__cta--remove`}>

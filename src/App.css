@@ -8,13 +8,13 @@ body {
 label {
   display: block;
   margin-bottom: 5px; }
-  @media (min-height: 768px) {
+  @media (min-height: 569px) {
     label {
       margin-bottom: 10px; } }
+  label:not(:only-child):last-child {
+    margin-bottom: 0; }
   label:not([disabled]) {
     cursor: pointer; }
-  label:last-child {
-    margin-bottom: 0; }
 
 input {
   width: 100%;
@@ -77,7 +77,7 @@ body,
     .credit-input__button--add {
       background-color: #0c84bb; }
       .credit-input__button--add, .credit-input__button--add.exiting, .credit-input__button--add.exited {
-        transform: translateY(20px);
+        transform: translateY(-15px);
         opacity: 0; }
       .credit-input__button--add.exited {
         pointer-events: none; }
@@ -88,6 +88,11 @@ body,
       background-color: #ff6347; }
   .credit-input__field-group {
     display: flex; }
+    .credit-input__field-group--md-up {
+      display: block; }
+      @media (min-width: 576px) {
+        .credit-input__field-group--md-up {
+          display: flex; } }
 
 .credit-calculation-result input {
   padding-top: 0;

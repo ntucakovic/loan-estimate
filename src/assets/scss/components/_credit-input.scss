@@ -27,7 +27,7 @@
       &,
       &.exiting,
       &.exited {
-        transform: translateY(20px);
+        transform: translateY(-$component-padding);
         opacity: 0;
       }
 
@@ -49,5 +49,13 @@
 
   &__field-group {
     display: flex;
+
+    &--md-up {
+      display: block;
+
+      @media (min-width: $screen-md-min) {
+        display: flex;
+      }
+    }
   }
 }

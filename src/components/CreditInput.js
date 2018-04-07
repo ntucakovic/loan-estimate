@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { CSSTransition, Transition } from 'react-transition-group'
+import { Transition } from 'react-transition-group';
 
 class CreditInput extends Component {
   static TRANSITION_DURATION = 300;
   static LABEL_HEIGHT = 68;
 
   static DEFAULT_TRANSITION_STYLE = {
-    transition: `opacity ${CreditInput.TRANSITION_DURATION}ms ease-in-out, height ${CreditInput.TRANSITION_DURATION}ms ease-in-out, transform ${CreditInput.TRANSITION_DURATION}ms ease-in-out`,
+    transition: `opacity ${CreditInput.TRANSITION_DURATION}ms ease-in-out, max-height ${CreditInput.TRANSITION_DURATION}ms ease-in-out, transform ${CreditInput.TRANSITION_DURATION}ms ease-in-out`,
     opacity: 0,
-    height: 0,
+    maxHeight: 0,
     transform: `translateX(100%)`
   }
 
@@ -25,12 +25,12 @@ class CreditInput extends Component {
     const transitionStyles = {
       entering: {
         opacity: 0,
-        height: 0,
+        maxHeight: 0,
         transform: `translateX(100%)`
       },
       entered: {
         opacity: 1,
-        height: CreditInput.LABEL_HEIGHT,
+        maxHeight: CreditInput.LABEL_HEIGHT,
         transform: `translateX(0)`
       }
     };

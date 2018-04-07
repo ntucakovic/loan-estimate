@@ -2,16 +2,18 @@ label {
   display: block;
   margin-bottom: 5px;
 
-  @media (min-height: 768px) {
+  @media (min-height: $screen-md-min-y) {
     margin-bottom: 10px;
+  }
+
+  &:not(:only-child) {
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &:not([disabled]) {
     cursor: pointer;
-  }
-
-  &:last-child {
-    margin-bottom: 0;
   }
 }
 
