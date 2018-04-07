@@ -1,4 +1,4 @@
-.credit-calculation-result {
+.credit-result {
   input {
     padding-top: 0;
     padding-bottom: 0;
@@ -9,11 +9,22 @@
     transition: opacity $transition-duration-base;
     opacity: 0.3;
 
+    &::before {
+      padding: 0;
+      transition: padding $transition-duration-base;
+      color: $color-accent;
+    }
+
     &.is-active {
       opacity: 1;
 
-      input {
+      &::before {
         padding: $input-padding;
+      }
+
+      input {
+        padding-top: $input-padding;
+        padding-bottom: $input-padding;
       }
     }
   }

@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AppProvider } from '../AppContext';
 import { repository } from '../modules/data';
 
-import CreditInputPage from './CreditInputPage';
+import Page from './Page';
 import RepositoryLink from '../components/RepositoryLink';
 
 const AppRouter = () => (
@@ -13,8 +13,8 @@ const AppRouter = () => (
       <BrowserRouter>
         <AppProvider>
           <Switch>
-            <Route exact path='/' component={CreditInputPage} />
-            <Route exact path='/calculations/:calculation' component={CreditInputPage} />
+            <Route exact path='/' component={Page} />
+            <Route exact path='/calculations/:calculation' component={Page} />
           </Switch>
         </AppProvider>
       </BrowserRouter>
