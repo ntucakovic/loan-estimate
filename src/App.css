@@ -83,7 +83,13 @@ body,
     padding: 15px 0; }
     .credit-input__cta--add {
       position: sticky;
-      padding: 15px 0; }
+      transition: max-height 0.5s, padding 0.5s; }
+      .credit-input__cta--add, .credit-input__cta--add.exiting, .credit-input__cta--add.exited {
+        max-height: 0;
+        padding: 0; }
+      .credit-input__cta--add.entering, .credit-input__cta--add.entered {
+        max-height: 80px;
+        padding: 15px 0; }
   .credit-input__button {
     display: block;
     width: 100%;
@@ -92,7 +98,7 @@ body,
     .credit-input__button--add {
       background-color: #0c84bb; }
       .credit-input__button--add, .credit-input__button--add.exiting, .credit-input__button--add.exited {
-        transform: translateY(-15px);
+        transform: translateY(-30px);
         opacity: 0; }
       .credit-input__button--add.exited {
         pointer-events: none; }

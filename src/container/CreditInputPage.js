@@ -82,10 +82,9 @@ class CreditInputPage extends React.Component {
                   <Transition
                     in={showAdd}
                     timeout={300}
-                    mountOnEnter
-                    unmountOnExit>
+                    mountOnEnter>
                     {state => (
-                      <div className={`credit-input__cta credit-input__cta--add`}>
+                      <div className={`credit-input__cta credit-input__cta--add ${state}`}>
                         <button key='add' className={`credit-input__button credit-input__button--add ${state}`} onClick={saveCalculation(activeCalculationId)}>
                           {localization.saveCalculation}
                         </button>

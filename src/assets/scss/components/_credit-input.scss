@@ -41,7 +41,20 @@ $credit-input-label-prefix-width: 18px;
 
     &--add {
       position: sticky;
-      padding: $component-padding 0;
+      transition: max-height $transition-duration-long, padding $transition-duration-long;
+
+      &,
+      &.exiting,
+      &.exited {
+        max-height: 0;
+        padding: 0;
+      }
+
+      &.entering,
+      &.entered {
+        max-height: 80px;
+        padding: $component-padding 0;
+      }
     }
   }
 
@@ -57,7 +70,7 @@ $credit-input-label-prefix-width: 18px;
       &,
       &.exiting,
       &.exited {
-        transform: translateY(-$component-padding);
+        transform: translateY(-30px);
         opacity: 0;
       }
 
