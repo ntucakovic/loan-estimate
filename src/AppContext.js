@@ -16,7 +16,7 @@ class AppProvider extends React.Component {
     calculations: {
       draft: { ...CreditForm.DEFAULT_PARAMETERS }
     },
-    currency: null
+    defaultCurrency: null
   };
 
   static LOCAL_STORAGE_KEY = 'CREDIT_CALCULATIONS';
@@ -30,14 +30,19 @@ class AppProvider extends React.Component {
     // Set language.
     localization.setLanguage(getLanguage());
 
-    const storage = window.localStorage.getItem(AppProvider.LOCAL_STORAGE_KEY);
-    const storageJson = JSON.parse(storage) || { calculations: {} };
+    try {
+      const storage = window.localStorage.getItem(AppProvider.LOCAL_STORAGE_KEY);
+      const storageJson = JSON.parse(storage) || { calculations: {} };
 
-    // Merge local storage calculations with draft one.
-    const calculations = Object.assign({}, { ...AppProvider.DEFAULT_STATE.calculations }, { ...storageJson.calculations });
-    const { defaultCurrency = null } = storageJson;
+      // Merge local storage calculations with draft one.
+      const calculations = Object.assign({}, { ...AppProvider.DEFAULT_STATE.calculations }, { ...storageJson.calculations });
+      const { defaultCurrency = null } = storageJson;
 
-    this.state = { calculations, defaultCurrency };
+      this.state = { calculations, defaultCurrency };
+    } catch (e) {
+      // Local Storage doesn't exist.
+      this.state = { calculations: { ...AppProvider.DEFAULT_STATE.calculations } };
+    }
   }
 
   getCalculation = (calculationId) => {
@@ -138,8 +143,12 @@ class AppProvider extends React.Component {
   }
 
   updateLocalStorage = () => {
-    const { calculations = {}, defaultCurrency } = this.state;
-    window.localStorage.setItem(AppProvider.LOCAL_STORAGE_KEY, JSON.stringify({ calculations, defaultCurrency }));
+    try {
+      const { calculations = {}, defaultCurrency } = this.state;
+      window.localStorage.setItem(AppProvider.LOCAL_STORAGE_KEY, JSON.stringify({ calculations, defaultCurrency }));
+    } catch (e) {
+      // Local storage doesn't exist.
+    }
   }
 
   render () {
