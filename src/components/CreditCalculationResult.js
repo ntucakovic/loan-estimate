@@ -16,8 +16,10 @@ class CreditCalculationResult extends Component {
   }
 
   render () {
-    const { showTotalAmount, calculation = {}, localization } = this.props;
+    const { calculation = {}, localization } = this.props;
     const { totalAmount, loanTotal, depositTotal, monthTotal, monthlyRate } = calculation;
+
+    const showTotalAmount = (!calculation.totalAmountInput || calculation.totalAmountInput === 0) && calculation.totalAmount;
 
     return (
       <div className='credit-calculation-result'>
@@ -58,7 +60,6 @@ class CreditCalculationResult extends Component {
 }
 
 CreditCalculationResult.propTypes = {
-  showTotalAmount: PropTypes.bool,
   localization: PropTypes.object.isRequired,
   calculation: PropTypes.shape({
     squareMeterPrice: PropTypes.string,
