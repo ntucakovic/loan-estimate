@@ -6,14 +6,14 @@ import { repository } from './modules/data';
 import { getLanguage } from './modules/helperFunctions';
 import CreditCalculation from './modules/CreditCalculation';
 
-import CreditInput from './components/CreditInput';
+import CreditForm from './components/CreditForm';
 
 const AppContext = React.createContext();
 
 class AppProvider extends React.Component {
   static DEFAULT_STATE = {
     calculations: {
-      draft: { ...CreditInput.DEFAULT_PARAMETERS }
+      draft: { ...CreditForm.DEFAULT_PARAMETERS }
     }
   };
 

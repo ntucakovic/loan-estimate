@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { numberFormat } from '../modules/helperFunctions';
 
-class CreditCalculationResult extends Component {
+class CreditResult extends Component {
   static getPropValue = (propValue) => {
     let value = '-';
 
@@ -22,30 +22,30 @@ class CreditCalculationResult extends Component {
     const showTotalAmount = (!calculation.totalAmountInput || calculation.totalAmountInput === 0) && calculation.totalAmount;
 
     return (
-      <div className='credit-calculation-result'>
-        <div className='credit-input__field-group credit-input__field-group--md-up'>
+      <div className='credit-result'>
+        <div className='form-field-group form-field-group--md-up'>
           {showTotalAmount && (
-            <label className={`credit-calculation-result__detail ${totalAmount ? 'is-active' : ''}`}>
+            <label className={`credit-result__detail ${totalAmount ? 'is-active' : ''}`}>
               {localization.totalAmount}
-              <input className='credit-calculation-result__value' type='text' disabled value={CreditCalculationResult.getPropValue(totalAmount)} />
+              <input className='credit-result__value' type='text' disabled value={CreditResult.getPropValue(totalAmount)} />
             </label>
           )}
 
-          <label className={`credit-calculation-result__detail ${loanTotal ? 'is-active' : ''}`}>
+          <label className={`credit-result__detail ${loanTotal ? 'is-active' : ''}`}>
             {localization.loanTotal}
-            <input className='credit-calculation-result__value' type='text' disabled value={CreditCalculationResult.getPropValue(loanTotal)} />
+            <input className='credit-result__value' type='text' disabled value={CreditResult.getPropValue(loanTotal)} />
           </label>
 
-          <label className={`credit-calculation-result__detail ${depositTotal ? 'is-active' : ''}`}>
+          <label className={`credit-result__detail ${depositTotal ? 'is-active' : ''}`}>
             {localization.depositTotal}
-            <input className='credit-calculation-result__value' type='text' disabled value={CreditCalculationResult.getPropValue(depositTotal)} />
+            <input className='credit-result__value' type='text' disabled value={CreditResult.getPropValue(depositTotal)} />
           </label>
         </div>
-        <label className={`credit-calculation-result__detail ${monthlyRate ? 'is-active' : ''}`}>
+        <label className={`credit-result__detail ${monthlyRate ? 'is-active' : ''}`}>
           {localization.monthlyRate}
-          <input className='credit-calculation-result__value' type='text' disabled value={(() => {
-            const rate = CreditCalculationResult.getPropValue(monthlyRate);
-            const months = CreditCalculationResult.getPropValue(monthTotal);
+          <input className='credit-result__value' type='text' disabled value={(() => {
+            const rate = CreditResult.getPropValue(monthlyRate);
+            const months = CreditResult.getPropValue(monthTotal);
 
             if (rate !== '-' && months !== '-') {
               return `${rate} x ${months} ${localization.months}`;
@@ -59,7 +59,7 @@ class CreditCalculationResult extends Component {
   }
 }
 
-CreditCalculationResult.propTypes = {
+CreditResult.propTypes = {
   localization: PropTypes.object.isRequired,
   calculation: PropTypes.shape({
     squareMeterPrice: PropTypes.string,
@@ -75,7 +75,7 @@ CreditCalculationResult.propTypes = {
   })
 };
 
-CreditCalculationResult.defaultProps = {
+CreditResult.defaultProps = {
   showTotalAmount: true,
   calculation: {
     totalAmount: null,
@@ -86,4 +86,4 @@ CreditCalculationResult.defaultProps = {
   }
 };
 
-export default CreditCalculationResult;
+export default CreditResult;

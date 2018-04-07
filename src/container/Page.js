@@ -4,13 +4,13 @@ import { Redirect } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 
 import { AppContext } from '../AppContext';
-import CreditInput from '../components/CreditInput';
-import CreditCalculationResult from '../components/CreditCalculationResult';
-import Calculations from '../components/Calculations';
+import CreditForm from '../components/CreditForm';
+import CreditResult from '../components/CreditResult';
+import CreditNavigation from '../components/CreditNavigation';
 import Share from '../components/Share';
 import { share } from '../modules/data';
 
-class CreditInputPage extends React.Component {
+class Page extends React.Component {
   static contextTypes = {
     router: PropTypes.object
   }
@@ -20,11 +20,11 @@ class CreditInputPage extends React.Component {
 
   getAvailableAction = (calculation) => {
     if (calculation && !calculation.id && calculation.monthlyRate) {
-      return CreditInputPage.ADD_ACTION;
+      return Page.ADD_ACTION;
     }
 
     if (calculation && calculation.id) {
-      return CreditInputPage.REMOVE_ACTION;
+      return Page.REMOVE_ACTION;
     }
   }
 
@@ -35,14 +35,14 @@ class CreditInputPage extends React.Component {
           const activeCalculationId = this.props.match.params.calculation || null;
           const calculation = getCalculation(activeCalculationId);
           const action = this.getAvailableAction(calculation);
-          const showAdd = (action === CreditInputPage.ADD_ACTION);
+          const showAdd = (action === Page.ADD_ACTION);
 
           let actionModifier;
           switch (action) {
-            case CreditInputPage.ADD_ACTION:
+            case Page.ADD_ACTION:
               actionModifier = 'add';
               break;
-            case CreditInputPage.REMOVE_ACTION:
+            case Page.REMOVE_ACTION:
               actionModifier = 'remove';
               break;
             default:
@@ -68,16 +68,16 @@ class CreditInputPage extends React.Component {
           return (
             <React.Fragment>
               {Object.keys(savedCalculations).length !== 0 && (
-                <Calculations calculations={savedCalculations} localization={localization} />
+                <CreditNavigation calculations={savedCalculations} localization={localization} />
               )}
 
               <div className='app__scroll'>
-                <CreditInput
+                <CreditForm
                   localization={localization}
                   calculation={calculation}
                   updateCalculation={updateCalculation}
                 >
-                  <CreditCalculationResult
+                  <CreditResult
                     localization={localization}
                     calculation={calculation} />
 
@@ -94,14 +94,14 @@ class CreditInputPage extends React.Component {
                     )}
                   </Transition>
 
-                  {action === CreditInputPage.REMOVE_ACTION && (
+                  {action === Page.REMOVE_ACTION && (
                     <div className={`credit-input__cta credit-input__cta--remove`}>
                       <button key={actionModifier} className={`credit-input__button credit-input__button--remove`} onClick={removeCalculation(activeCalculationId)}>
                         {localization.deleteCalculation}
                       </button>
                     </div>
                   )}
-                </CreditInput>
+                </CreditForm>
               </div>
               <Share {...share} localization={localization} />
             </React.Fragment>
@@ -112,8 +112,8 @@ class CreditInputPage extends React.Component {
   }
 }
 
-CreditInputPage.propTypes = {
+Page.propTypes = {
   match: PropTypes.object
 };
 
-export default CreditInputPage;
+export default Page;

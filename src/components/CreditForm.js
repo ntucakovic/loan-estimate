@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Transition } from 'react-transition-group';
 
-class CreditInput extends Component {
+class CreditForm extends Component {
   static TRANSITION_DURATION = 300;
   static LABEL_HEIGHT = 68;
 
   static DEFAULT_TRANSITION_STYLE = {
-    transition: `opacity ${CreditInput.TRANSITION_DURATION}ms ease-in-out, max-height ${CreditInput.TRANSITION_DURATION}ms ease-in-out, transform ${CreditInput.TRANSITION_DURATION}ms ease-in-out`,
+    transition: `opacity ${CreditForm.TRANSITION_DURATION}ms ease-in-out, max-height ${CreditForm.TRANSITION_DURATION}ms ease-in-out, transform ${CreditForm.TRANSITION_DURATION}ms ease-in-out`,
     opacity: 0,
     maxHeight: 0,
     transform: `translateX(100%)`
@@ -30,13 +30,13 @@ class CreditInput extends Component {
       },
       entered: {
         opacity: 1,
-        maxHeight: CreditInput.LABEL_HEIGHT,
+        maxHeight: CreditForm.LABEL_HEIGHT,
         transform: `translateX(0)`
       }
     };
 
     return {
-      ...CreditInput.DEFAULT_TRANSITION_STYLE,
+      ...CreditForm.DEFAULT_TRANSITION_STYLE,
       ...transitionStyles[state]
     };
   }
@@ -58,13 +58,13 @@ class CreditInput extends Component {
               <div style={{
                 ...this.getTransitionStyles(state)
               }}>
-                <label htmlFor='squareMeterPrice' className={`credit-input__label`}>
+                <label htmlFor='squareMeterPrice' className={`form-label`}>
                   <span>{localization.totalAmount}</span>
 
                   <input
                     id='totalAmountInput'
                     name='totalAmountInput'
-                    className='credit-input__input'
+                    className='form-input'
                     type='number' min='0' step='50'
                     value={calculation.totalAmountInput || ''}
                     onChange={updateCalculation(calculation.id)} />
@@ -79,28 +79,28 @@ class CreditInput extends Component {
             mountOnEnter
             unmountOnExit>
             {state => (
-              <div className={`credit-input__field-group ${state}`} style={{
+              <div className={`form-field-group ${state}`} style={{
                 ...this.getTransitionStyles(state)
               }}>
-                <label htmlFor='flatSize' className='credit-input__label'>
+                <label htmlFor='flatSize' className='form-label'>
                   <span>{localization.flatSize}</span>
 
                   <input
                     id='flatSize'
                     name='flatSize'
-                    className='credit-input__input'
+                    className='form-input'
                     type='number' min='0'
                     value={calculation.flatSize || ''}
                     onChange={updateCalculation(calculation.id)} />
                 </label>
 
-                <label htmlFor='squareMeterPrice' className='credit-input__label'>
+                <label htmlFor='squareMeterPrice' className='form-label'>
                   <span>{localization.squareMeterPrice}</span>
 
                   <input
                     id='squareMeterPrice'
                     name='squareMeterPrice'
-                    className='credit-input__input'
+                    className='form-input'
                     type='number' min='0' step='50'
                     value={calculation.squareMeterPrice || ''}
                     onChange={updateCalculation(calculation.id)} />
@@ -109,39 +109,39 @@ class CreditInput extends Component {
             )}
           </Transition>
 
-          <div className='credit-input__field-group credit-input__field-group--md-up'>
-            <div className='credit-input__field-group'>
-              <label htmlFor='depositPercentage' className='credit-input__label credit-input__label--with-prefix' data-prefix='%'>
+          <div className='form-field-group form-field-group--md-up'>
+            <div className='form-field-group'>
+              <label htmlFor='depositPercentage' className='form-label form-label--with-prefix' data-prefix='%'>
                 <span>{localization.depositPercentage}</span>
 
                 <input
                   id='depositPercentage'
                   name='depositPercentage'
-                  className='credit-input__input'
+                  className='form-input'
                   type='number' min='0' max='100' step='0.1'
                   value={calculation.depositPercentage || ''}
                   onChange={updateCalculation(calculation.id)} />
               </label>
-              <label htmlFor='interest' className='credit-input__label credit-input__label--with-prefix' data-prefix='%'>
+              <label htmlFor='interest' className='form-label form-label--with-prefix' data-prefix='%'>
                 <span>{localization.interest}</span>
 
                 <input
                   id='interest'
                   name='interest'
-                  className='credit-input__input'
+                  className='form-input'
                   type='number' min='0' max='100' step='0.1'
                   value={calculation.interest || ''}
                   onChange={updateCalculation(calculation.id)} />
               </label>
             </div>
 
-            <label htmlFor='term' className='credit-input__label'>
+            <label htmlFor='term' className='form-label'>
               <span>{localization.term}</span>
 
               <input
                 id='term'
                 name='term'
-                className='credit-input__input'
+                className='form-input'
                 type='number' min='0' max='30' step='1'
                 value={calculation.term || ''}
                 onChange={updateCalculation(calculation.id)} />
@@ -155,11 +155,11 @@ class CreditInput extends Component {
   }
 }
 
-CreditInput.propTypes = {
+CreditForm.propTypes = {
   updateCalculation: PropTypes.func,
   localization: PropTypes.object,
   calculation: PropTypes.shape(),
   children: PropTypes.any
 };
 
-export default CreditInput;
+export default CreditForm;

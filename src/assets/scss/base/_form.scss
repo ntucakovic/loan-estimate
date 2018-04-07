@@ -46,3 +46,61 @@ button {
   font-size: 16px;
   line-height: $input-btn-height;
 }
+
+.form-field-group {
+  display: flex;
+
+  > * {
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
+  &--md-up {
+    display: block;
+
+    > * {
+      margin-right: 0;
+    }
+
+    @media (min-width: $screen-md-min) {
+      display: flex;
+
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+
+.form {
+  &-label {
+    position: relative;
+
+    span {
+      white-space: nowrap;
+    }
+
+    &--with-prefix {
+      &::before {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: $input-label-prefix-width;
+        padding: $input-padding;
+        content: attr(data-prefix);
+        font-size: $input-font-size;
+
+        @media (min-height: $screen-md-min-y) {
+          line-height: $input-font-size-md-min-y;
+        }
+      }
+
+      .form-input {
+        padding-left: $input-padding + $input-label-prefix-width;
+      }
+    }
+  }
+}
