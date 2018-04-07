@@ -109,11 +109,17 @@ body,
       background-color: #ff6347; }
   .credit-input__field-group {
     display: flex; }
+    .credit-input__field-group > *:not(:last-child) {
+      margin-right: 10px; }
     .credit-input__field-group--md-up {
       display: block; }
+      .credit-input__field-group--md-up > * {
+        margin-right: 0; }
       @media (min-width: 576px) {
         .credit-input__field-group--md-up {
-          display: flex; } }
+          display: flex; }
+          .credit-input__field-group--md-up > *:not(:last-child) {
+            margin-right: 10px; } }
 
 .credit-calculation-result input {
   padding-top: 0;
