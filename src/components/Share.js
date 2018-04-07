@@ -19,6 +19,10 @@ class Share extends React.Component {
     iconSize: Share.ICON_SMALL
   }
 
+  componentDidMount () {
+    this.updateIconSize();
+  }
+
   componentWillMount () {
     window.addEventListener('resize', this.updateIconSize);
   }
