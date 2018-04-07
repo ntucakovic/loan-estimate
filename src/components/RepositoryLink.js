@@ -1,5 +1,5 @@
 import React from 'react';
-import githubIcon from './github.svg';
+import githubIcon from '../assets/images/github.svg';
 import Isvg from 'react-inlinesvg';
 
 const RepositoryLink = function (props) {
@@ -9,13 +9,6 @@ const RepositoryLink = function (props) {
       <div className='repository-link__background' />
     </div>
   );
-};
-
-RepositoryLink.defaultProps = {
-  href: 'https://github.com/ntucakovic/portfolio',
-  target: '_blank',
-  rel: 'noopener noreferrer',
-  title: 'Read code on GitHub'
 };
 
 export default RepositoryLink;

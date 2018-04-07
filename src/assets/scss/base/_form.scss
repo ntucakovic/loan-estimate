@@ -1,0 +1,48 @@
+label {
+  display: block;
+  margin-bottom: 5px;
+
+  @media (min-height: $screen-md-min-y) {
+    margin-bottom: 10px;
+  }
+
+  &:not([disabled]) {
+    cursor: pointer;
+  }
+}
+
+input {
+  width: 100%;
+  padding: $input-padding;
+  transition: box-shadow $transition-duration-base;
+  border: 0;
+  outline: none;
+  background: transparent;
+  box-shadow: inset 0 -1px $gray;
+  font-size: $input-font-size;
+  font-weight: 300;
+
+  @media (min-height: $screen-md-min-y) {
+    font-size: $input-font-size-md-min-y;
+  }
+
+  &:focus {
+    box-shadow: inset 0 -3px $color-accent;
+  }
+
+  &[disabled] {
+    color: $color-accent;
+    border-radius: 5px;
+    background: transparent;
+    box-shadow: inset 0 -1px $gray-lighter;
+  }
+}
+
+button {
+  height: $input-btn-height;
+  border: 0;
+  border-radius: $component-border-radius;
+  font-family: $app-font-family;
+  font-size: 16px;
+  line-height: $input-btn-height;
+}

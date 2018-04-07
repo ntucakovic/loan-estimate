@@ -5,11 +5,15 @@
   "private": true,
   "dependencies": {
     "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^16.3",
+    "react-dom": "^16.3.0",
     "react-inlinesvg": "^0.6.2",
     "react-localization": "^0.1.2",
-    "react-scripts": "1.0.14"
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.14",
+    "react-share": "^2.1.0",
+    "react-transition-group": "^2.3.0"
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",

@@ -1,0 +1,120 @@
+$credit-input-label-prefix-width: 18px;
+
+.credit-input {
+  position: relative;
+  width: 100%;
+  padding-bottom: 15px;
+
+  &__label {
+    position: relative;
+
+    span {
+      white-space: nowrap;
+    }
+
+    &--with-prefix {
+      &::before {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: $credit-input-label-prefix-width;
+        padding: $input-padding;
+        content: attr(data-prefix);
+        font-size: $input-font-size;
+
+        @media (min-height: $screen-md-min-y) {
+          line-height: $input-font-size-md-min-y;
+        }
+      }
+
+      input {
+        padding-left: $input-padding + $credit-input-label-prefix-width;
+      }
+    }
+  }
+
+  &__cta {
+    bottom: 0;
+    left: 0;
+    margin-bottom: -#{$component-padding};
+    padding: $component-padding 0;
+
+    &--add {
+      position: sticky;
+      transition: max-height $transition-duration-long, padding $transition-duration-long;
+
+      &,
+      &.exiting,
+      &.exited {
+        max-height: 0;
+        padding: 0;
+      }
+
+      &.entering,
+      &.entered {
+        max-height: 80px;
+        padding: $component-padding 0;
+      }
+    }
+  }
+
+  &__button {
+    display: block;
+    width: 100%;
+    transition: opacity $transition-duration-base, transform $transition-duration-base;
+    color: $white;
+
+    &--add {
+      background-color: $color-accent;
+
+      &,
+      &.exiting,
+      &.exited {
+        transform: translateY(-30px);
+        opacity: 0;
+      }
+
+      &.exited {
+        pointer-events: none;
+      }
+
+      &.entering,
+      &.entered {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    &--remove {
+      background-color: $color-danger;
+    }
+  }
+
+  &__field-group {
+    display: flex;
+
+    > * {
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+
+    &--md-up {
+      display: block;
+
+      > * {
+        margin-right: 0;
+      }
+
+      @media (min-width: $screen-md-min) {
+        display: flex;
+
+        > * {
+          &:not(:last-child) {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+}
