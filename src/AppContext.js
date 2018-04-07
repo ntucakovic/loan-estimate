@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import getSymbolFromCurrency from 'currency-symbol-map';
 
 import localization from './modules/Localization';
 import { repository } from './modules/data';
@@ -14,7 +15,8 @@ class AppProvider extends React.Component {
   static DEFAULT_STATE = {
     calculations: {
       draft: { ...CreditForm.DEFAULT_PARAMETERS }
-    }
+    },
+    currency: null
   };
 
   static LOCAL_STORAGE_KEY = 'CREDIT_CALCULATIONS';
@@ -28,13 +30,14 @@ class AppProvider extends React.Component {
     // Set language.
     localization.setLanguage(getLanguage());
 
-    const creditCalculationsStorage = window.localStorage.getItem(AppProvider.LOCAL_STORAGE_KEY);
-    const creditCalculations = JSON.parse(creditCalculationsStorage) || { calculations: {} };
+    const storage = window.localStorage.getItem(AppProvider.LOCAL_STORAGE_KEY);
+    const storageJson = JSON.parse(storage) || { calculations: {} };
 
     // Merge local storage calculations with draft one.
-    const calculations = Object.assign({}, { ...AppProvider.DEFAULT_STATE.calculations }, { ...creditCalculations.calculations });
+    const calculations = Object.assign({}, { ...AppProvider.DEFAULT_STATE.calculations }, { ...storageJson.calculations });
+    const { currency = null } = storageJson;
 
-    this.state = { calculations };
+    this.state = { calculations, currency };
   }
 
   getCalculation = (calculationId) => {
@@ -126,9 +129,17 @@ class AppProvider extends React.Component {
     };
   }
 
+  setCurrency = (currencyInput) => {
+    const currency = getSymbolFromCurrency(currencyInput);
+
+    if (currency) {
+      this.setState({ currency: currencyInput }, this.updateLocalStorage);
+    }
+  }
+
   updateLocalStorage = () => {
-    const { calculations = {} } = this.state;
-    window.localStorage.setItem(AppProvider.LOCAL_STORAGE_KEY, JSON.stringify({ calculations }));
+    const { calculations = {}, currency } = this.state;
+    window.localStorage.setItem(AppProvider.LOCAL_STORAGE_KEY, JSON.stringify({ calculations, currency }));
   }
 
   render () {
@@ -142,7 +153,10 @@ class AppProvider extends React.Component {
         getCalculation: this.getCalculation,
         saveCalculation: this.saveCalculation,
         removeCalculation: this.removeCalculation,
-        updateCalculation: this.updateCalculation
+        updateCalculation: this.updateCalculation,
+
+        currency: this.state.currency,
+        setCurrency: this.setCurrency
       }}>
         {this.props.children}
       </AppContext.Provider>

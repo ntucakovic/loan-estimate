@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Transition } from 'react-transition-group';
+import getSymbolFromCurrency from 'currency-symbol-map';
 
 class CreditForm extends Component {
   static TRANSITION_DURATION = 300;
   static LABEL_HEIGHT = 68;
+  static ALLOWED_CURRENCIES = ['EUR', 'USD', 'GBP'];
 
   static DEFAULT_TRANSITION_STYLE = {
     transition: `opacity ${CreditForm.TRANSITION_DURATION}ms ease-in-out, max-height ${CreditForm.TRANSITION_DURATION}ms ease-in-out, transform ${CreditForm.TRANSITION_DURATION}ms ease-in-out`,
@@ -41,8 +43,14 @@ class CreditForm extends Component {
     };
   }
 
+  setCurrency = (event) => {
+    const { setCurrency } = this.props;
+
+    setCurrency(event.target.value);
+  }
+
   render () {
-    const { calculation = {}, localization, updateCalculation } = this.props;
+    const { calculation = {}, localization, updateCalculation, currency } = this.props;
     const showTotalAmountInput = !(calculation.squareMeterPrice && calculation.flatSize);
     const showAlternativeInputs = !calculation.totalAmountInput;
 
@@ -58,17 +66,31 @@ class CreditForm extends Component {
               <div style={{
                 ...this.getTransitionStyles(state)
               }}>
-                <label htmlFor='squareMeterPrice' className={`form-label`}>
-                  <span>{localization.totalAmount}</span>
+                <div className='form-field-group'>
+                  <label htmlFor='squareMeterPrice' className='form-label form-label--with-prefix' data-prefix={getSymbolFromCurrency(currency)}>
+                    <span>{localization.totalAmount}</span>
 
-                  <input
-                    id='totalAmountInput'
-                    name='totalAmountInput'
-                    className='form-input'
-                    type='number' min='0' step='50'
-                    value={calculation.totalAmountInput || ''}
-                    onChange={updateCalculation(calculation.id)} />
-                </label>
+                    <input
+                      id='totalAmountInput'
+                      name='totalAmountInput'
+                      className='form-input'
+                      type='number' min='0' step='50'
+                      value={calculation.totalAmountInput || ''}
+                      onChange={updateCalculation(calculation.id)} />
+                  </label>
+
+                  <label htmlFor='currency' className='form-label'>
+                    <span>{localization.currency}</span>
+
+                    <select name='currency' id='currency' onChange={this.setCurrency} defaultValue={currency}>
+                      {CreditForm.ALLOWED_CURRENCIES.map(currentCurrency => (
+                        <option
+                          key={currentCurrency}
+                          value={currentCurrency}>{getSymbolFromCurrency(currentCurrency)}</option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
               </div>
             )}
           </Transition>
@@ -159,7 +181,9 @@ CreditForm.propTypes = {
   updateCalculation: PropTypes.func,
   localization: PropTypes.object,
   calculation: PropTypes.shape(),
-  children: PropTypes.any
+  children: PropTypes.any,
+  currency: PropTypes.string,
+  setCurrency: PropTypes.func
 };
 
 export default CreditForm;

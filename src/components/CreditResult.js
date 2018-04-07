@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { numberFormat } from '../modules/helperFunctions';
+import getSymbolFromCurrency from 'currency-symbol-map'
 
 class CreditResult extends Component {
   static getPropValue = (propValue) => {
@@ -15,8 +16,21 @@ class CreditResult extends Component {
     return value;
   }
 
+  static getPayoffDetails = (currency, monthlyRate, monthTotal, localizationMonths) => {
+    const rate = CreditResult.getPropValue(monthlyRate);
+    const months = CreditResult.getPropValue(monthTotal);
+    const currencySymbol = getSymbolFromCurrency(currency);
+    const isUSD = currency === 'USD';
+
+    if (rate !== '-' && months !== '-') {
+      return `${isUSD ? currencySymbol : ''}${rate}${!isUSD ? currencySymbol : ''} x ${months} ${localizationMonths}`;
+    }
+
+    return '-';
+  }
+
   render () {
-    const { calculation = {}, localization } = this.props;
+    const { calculation = {}, localization, currency } = this.props;
     const { totalAmount, loanTotal, depositTotal, monthTotal, monthlyRate } = calculation;
 
     const showTotalAmount = (!calculation.totalAmountInput || calculation.totalAmountInput === 0) && calculation.totalAmount;
@@ -25,34 +39,25 @@ class CreditResult extends Component {
       <div className='credit-result'>
         <div className='form-field-group form-field-group--md-up'>
           {showTotalAmount && (
-            <label className={`credit-result__detail ${totalAmount ? 'is-active' : ''}`}>
+            <label className={`credit-result__detail ${totalAmount ? 'is-active' : ''} form-label form-label--with-prefix`} data-prefix={getSymbolFromCurrency(currency)}>
               {localization.totalAmount}
-              <input className='credit-result__value' type='text' disabled value={CreditResult.getPropValue(totalAmount)} />
+              <input className='credit-result__value form-input' type='text' disabled value={CreditResult.getPropValue(totalAmount)} />
             </label>
           )}
 
-          <label className={`credit-result__detail ${loanTotal ? 'is-active' : ''}`}>
+          <label className={`credit-result__detail ${loanTotal ? 'is-active' : ''} form-label form-label--with-prefix`} data-prefix={getSymbolFromCurrency(currency)}>
             {localization.loanTotal}
-            <input className='credit-result__value' type='text' disabled value={CreditResult.getPropValue(loanTotal)} />
+            <input className='credit-result__value form-input' type='text' disabled value={CreditResult.getPropValue(loanTotal)} />
           </label>
 
-          <label className={`credit-result__detail ${depositTotal ? 'is-active' : ''}`}>
+          <label className={`credit-result__detail ${depositTotal ? 'is-active' : ''} form-label form-label--with-prefix`} data-prefix={getSymbolFromCurrency(currency)}>
             {localization.depositTotal}
-            <input className='credit-result__value' type='text' disabled value={CreditResult.getPropValue(depositTotal)} />
+            <input className='credit-result__value form-input' type='text' disabled value={CreditResult.getPropValue(depositTotal)} />
           </label>
         </div>
         <label className={`credit-result__detail ${monthlyRate ? 'is-active' : ''}`}>
           {localization.monthlyRate}
-          <input className='credit-result__value' type='text' disabled value={(() => {
-            const rate = CreditResult.getPropValue(monthlyRate);
-            const months = CreditResult.getPropValue(monthTotal);
-
-            if (rate !== '-' && months !== '-') {
-              return `${rate} x ${months} ${localization.months}`;
-            }
-
-            return '-';
-          })()} />
+          <input className='credit-result__value form-input' type='text' disabled value={CreditResult.getPayoffDetails(currency, monthlyRate, monthTotal, localization.months)} />
         </label>
       </div>
     );
@@ -61,6 +66,7 @@ class CreditResult extends Component {
 
 CreditResult.propTypes = {
   localization: PropTypes.object.isRequired,
+  currency: PropTypes.string,
   calculation: PropTypes.shape({
     squareMeterPrice: PropTypes.string,
     flatSize: PropTypes.string,

@@ -9,11 +9,21 @@
     transition: opacity $transition-duration-base;
     opacity: 0.3;
 
+    &::before {
+      padding: 0;
+      transition: padding $transition-duration-base;
+    }
+
     &.is-active {
       opacity: 1;
 
-      input {
+      &::before {
         padding: $input-padding;
+      }
+
+      input {
+        padding-top: $input-padding;
+        padding-bottom: $input-padding;
       }
     }
   }

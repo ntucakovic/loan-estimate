@@ -31,7 +31,7 @@ class Page extends React.Component {
   render () {
     return (
       <AppContext.Consumer>
-        {({ localization, calculations, getCalculation, saveCalculation, updateCalculation, removeCalculation }) => {
+        {({ localization, calculations, getCalculation, saveCalculation, updateCalculation, removeCalculation, currency, setCurrency }) => {
           const activeCalculationId = this.props.match.params.calculation || null;
           const calculation = getCalculation(activeCalculationId);
           const action = this.getAvailableAction(calculation);
@@ -68,7 +68,7 @@ class Page extends React.Component {
           return (
             <React.Fragment>
               {Object.keys(savedCalculations).length !== 0 && (
-                <CreditNavigation calculations={savedCalculations} localization={localization} />
+                <CreditNavigation calculations={savedCalculations} localization={localization} currency={currency} />
               )}
 
               <div className='app__scroll'>
@@ -76,10 +76,13 @@ class Page extends React.Component {
                   localization={localization}
                   calculation={calculation}
                   updateCalculation={updateCalculation}
+                  currency={currency}
+                  setCurrency={setCurrency}
                 >
                   <CreditResult
                     localization={localization}
-                    calculation={calculation} />
+                    calculation={calculation}
+                    currency={currency} />
 
                   <Transition
                     in={showAdd}

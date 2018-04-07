@@ -19,7 +19,7 @@ class CreditNavigation extends React.Component {
   }
 
   render () {
-    const { calculations = {}, localization } = this.props;
+    const { calculations = {}, localization, currency } = this.props;
 
     return (
       <div className='credit-navigation'>
@@ -34,16 +34,7 @@ class CreditNavigation extends React.Component {
               <NavLink to={`/calculations/${calculation.id}`} key={key} activeClassName='is-active' className={`credit-navigation__item`} onClick={CreditNavigation.handleNavLinkClick}>
                 <h2>{calculation.name}</h2>
                 <p>
-                  {(() => {
-                    const rate = CreditResult.getPropValue(calculation.monthlyRate);
-                    const months = CreditResult.getPropValue(calculation.monthTotal);
-
-                    if (rate !== '-' && months !== '-') {
-                      return `${localization.monthlyRate}: ${rate} x ${months} ${localization.months}`;
-                    }
-
-                    return '-';
-                  })()}
+                  {CreditResult.getPayoffDetails(currency, calculation.monthlyRate, calculation.monthTotal, localization.months)}
                 </p>
               </NavLink>
             );
@@ -55,6 +46,7 @@ class CreditNavigation extends React.Component {
 }
 
 CreditNavigation.propTypes = {
+  currency: PropTypes.string,
   localization: PropTypes.object,
   calculations: PropTypes.shape()
 };

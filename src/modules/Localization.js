@@ -17,7 +17,8 @@ const strings = {
     deleteCalculation: 'Delete calculation',
     saveCalculationChanges: 'Save calculation changes',
     chooseCalculationName: 'Enter calculation alias, for easier recognition',
-    share: 'Share on: '
+    share: 'Share on: ',
+    currency: 'Currency'
   },
   sr: {
     squareMeterPrice: 'Cena po m²',
@@ -35,7 +36,8 @@ const strings = {
     deleteCalculation: 'Obriši kalkulaciju',
     saveCalculationChanges: 'Sačuvaj izmene kalkulacije',
     chooseCalculationName: 'Unesite naziv kalkulacije, kako biste je lakše pronašli',
-    share: 'Podeli na: '
+    share: 'Podeli na: ',
+    currency: 'Valuta'
   }
 };
 
