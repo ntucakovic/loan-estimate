@@ -1,99 +1,12 @@
-* {
-  &,
-  &::before,
-  &::after {
-    box-sizing: border-box;
-  }
-}
+@import 'assets/scss/variables';
+@import 'assets/scss/base/normalize';
+@import 'assets/scss/base/form';
+@import 'assets/scss/base/page';
 
-html,
-body,
-.root {
-  width: 100%;
-  height: 100%;
-}
+@import 'assets/scss/components/credit-input';
+@import 'assets/scss/components/credit-calculation-result';
+@import 'assets/scss/components/repository-link';
+@import 'assets/scss/components/calculations';
+@import 'assets/scss/components/share';
 
-html {
-  font-size: 16px;
-}
-
-body {
-  font-family: 'Quicksand', sans-serif;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-
-  @media (min-height: 768px) {
-    margin-bottom: 10px;
-  }
-
-  &:not([disabled]) {
-    cursor: pointer;
-  }
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-$gray: #ddd;
-$gray-lighter: #eee;
-$color-dark: #02141d;
-$color-accent: #0c84bb;
-$input-padding: 5px;
-
-$screen-md-min: 576px;
-$screen-lg-min: 992px;
-$screen-xlg-min: 1200px;
-
-
-input {
-  width: 100%;
-  padding: $input-padding;
-  border: 0;
-  outline: none;
-  background: transparent;
-  box-shadow: inset 0 -1px $gray;
-  font-size: 1rem;
-  font-weight: 300;
-
-  @media (min-height: 768px) {
-    font-size: 1.5rem;
-  }
-
-  &:focus {
-    box-shadow: inset 0 -3px $color-accent;
-  }
-
-  &[disabled] {
-    color: $color-accent;
-    border-radius: 5px;
-    background: transparent;
-    box-shadow: inset 0 -1px $gray-lighter;
-  }
-}
-
-.App {
-  display: flex;
-  min-width: 100%;
-  min-height: 100%;
-  background-color: $color-accent;
-  align-items: center;
-  justify-content: center;
-
-  &::before {
-    position: fixed;
-    width: calc(100vw * 1.3);
-    height: calc(100vh * 1.3);
-    content: '';
-    transform: rotate(-5deg);
-    background-color: $color-dark;
-    box-shadow: inset 0 calc(43vh) $color-accent;
-  }
-}
-
-@import 'Components/CreditInput/credit-input';
-@import 'Components/CreditCalculationResult/credit-calculation-result';
-@import 'Components/RepositoryLink/repository-link';
+@import 'assets/scss/theme/app';
