@@ -16,16 +16,18 @@ class CreditCalculationResult extends Component {
   }
 
   render () {
-    const { calculation = {}, localization } = this.props;
+    const { showTotalAmount, calculation = {}, localization } = this.props;
     const { totalAmount, loanTotal, depositTotal, monthTotal, monthlyRate } = calculation;
 
     return (
       <div className='credit-calculation-result'>
         <div className='credit-input__field-group credit-input__field-group--md-up'>
-          <label className={`credit-calculation-result__detail ${totalAmount ? 'is-active' : ''}`}>
-            {localization.totalAmount}
-            <input className='credit-calculation-result__value' type='text' disabled value={CreditCalculationResult.getPropValue(totalAmount)} />
-          </label>
+          {showTotalAmount && (
+            <label className={`credit-calculation-result__detail ${totalAmount ? 'is-active' : ''}`}>
+              {localization.totalAmount}
+              <input className='credit-calculation-result__value' type='text' disabled value={CreditCalculationResult.getPropValue(totalAmount)} />
+            </label>
+          )}
 
           <label className={`credit-calculation-result__detail ${loanTotal ? 'is-active' : ''}`}>
             {localization.loanTotal}
@@ -54,31 +56,9 @@ class CreditCalculationResult extends Component {
     );
   }
 }
-//
-// function test () {
-//   {
-//     Object.keys(CreditCalculationResult.defaultProps.calculation).map((key) => {
-//       let title = localization[key];
-//       let value = '-';
-//
-//       const propValue = calculation[key];
-//       if (propValue) {
-//         const decimals = (Math.round(propValue) === parseInt(propValue, 10)) ? 0 : 2;
-//         value = numberFormat(propValue, decimals);
-//       }
-//
-//       return (
-//         <label className={`credit-calculation-result__detail${propValue ? ' is-active' : ''}`} key={key}>
-//           {title}
-//
-//           <input className='credit-calculation-result__value' type='text' disabled value={value} />
-//         </label>
-//       );
-//     })
-//   }
-// }
 
 CreditCalculationResult.propTypes = {
+  showTotalAmount: PropTypes.bool,
   localization: PropTypes.object.isRequired,
   calculation: PropTypes.shape({
     squareMeterPrice: PropTypes.string,
@@ -95,6 +75,7 @@ CreditCalculationResult.propTypes = {
 };
 
 CreditCalculationResult.defaultProps = {
+  showTotalAmount: true,
   calculation: {
     totalAmount: null,
     loanTotal: null,

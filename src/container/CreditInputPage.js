@@ -78,6 +78,7 @@ class CreditInputPage extends React.Component {
                   updateCalculation={updateCalculation}
                 >
                   <CreditCalculationResult
+                    showTotalAmount={calculation.totalAmountInput === 0 && calculation.totalAmount}
                     localization={localization}
                     calculation={calculation} />
 
