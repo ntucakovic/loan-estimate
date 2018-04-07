@@ -43,16 +43,17 @@ class CreditForm extends Component {
     };
   }
 
-  setCurrency = (event) => {
-    const { setCurrency } = this.props;
+  setDefaultCurrency = (event) => {
+    const { setDefaultCurrency } = this.props;
 
-    setCurrency(event.target.value);
+    setDefaultCurrency(event.target.value);
   }
 
   render () {
-    const { calculation = {}, localization, updateCalculation, currency } = this.props;
+    const { calculation = {}, localization, updateCalculation, defaultCurrency } = this.props;
     const showTotalAmountInput = !(calculation.squareMeterPrice && calculation.flatSize);
     const showAlternativeInputs = !calculation.totalAmountInput;
+    const usedCurrency = calculation.currency || defaultCurrency;
 
     return (
       <React.Fragment>
@@ -67,7 +68,7 @@ class CreditForm extends Component {
                 ...this.getTransitionStyles(state)
               }}>
                 <div className='form-field-group'>
-                  <label htmlFor='squareMeterPrice' className='form-label form-label--with-prefix' data-prefix={getSymbolFromCurrency(currency)}>
+                  <label htmlFor='squareMeterPrice' className='form-label form-label--with-prefix' data-prefix={getSymbolFromCurrency(usedCurrency)}>
                     <span>{localization.totalAmount}</span>
 
                     <input
@@ -82,7 +83,10 @@ class CreditForm extends Component {
                   <label htmlFor='currency' className='form-label'>
                     <span>{localization.currency}</span>
 
-                    <select name='currency' id='currency' onChange={this.setCurrency} defaultValue={currency}>
+                    <select name='currency' id='currency' onChange={(event) => {
+                      this.setDefaultCurrency(event);
+                      updateCalculation(calculation.id)(event);
+                    }} defaultValue={usedCurrency}>
                       {CreditForm.ALLOWED_CURRENCIES.map(currentCurrency => (
                         <option
                           key={currentCurrency}
@@ -182,8 +186,8 @@ CreditForm.propTypes = {
   localization: PropTypes.object,
   calculation: PropTypes.shape(),
   children: PropTypes.any,
-  currency: PropTypes.string,
-  setCurrency: PropTypes.func
+  defaultCurrency: PropTypes.string,
+  setDefaultCurrency: PropTypes.func
 };
 
 export default CreditForm;

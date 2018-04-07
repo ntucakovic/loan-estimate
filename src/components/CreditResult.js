@@ -23,15 +23,16 @@ class CreditResult extends Component {
     const isUSD = currency === 'USD';
 
     if (rate !== '-' && months !== '-') {
-      return `${isUSD ? currencySymbol : ''}${rate}${!isUSD ? currencySymbol : ''} x ${months} ${localizationMonths}`;
+      return `${isUSD ? `${currencySymbol} ` : ''}${rate}${!isUSD ? ` ${currencySymbol}` : ''} x ${months} ${localizationMonths}`;
     }
 
     return '-';
   }
 
   render () {
-    const { calculation = {}, localization, currency } = this.props;
+    const { calculation = {}, localization, defaultCurrency } = this.props;
     const { totalAmount, loanTotal, depositTotal, monthTotal, monthlyRate } = calculation;
+    const usedCurrency = calculation.currency || defaultCurrency;
 
     const showTotalAmount = (!calculation.totalAmountInput || calculation.totalAmountInput === 0) && calculation.totalAmount;
 
@@ -39,25 +40,25 @@ class CreditResult extends Component {
       <div className='credit-result'>
         <div className='form-field-group form-field-group--md-up'>
           {showTotalAmount && (
-            <label className={`credit-result__detail ${totalAmount ? 'is-active' : ''} form-label form-label--with-prefix`} data-prefix={getSymbolFromCurrency(currency)}>
+            <label className={`credit-result__detail ${totalAmount ? 'is-active' : ''} form-label form-label--with-prefix`} data-prefix={getSymbolFromCurrency(usedCurrency)}>
               {localization.totalAmount}
               <input className='credit-result__value form-input' type='text' disabled value={CreditResult.getPropValue(totalAmount)} />
             </label>
           )}
 
-          <label className={`credit-result__detail ${loanTotal ? 'is-active' : ''} form-label form-label--with-prefix`} data-prefix={getSymbolFromCurrency(currency)}>
+          <label className={`credit-result__detail ${loanTotal ? 'is-active' : ''} form-label form-label--with-prefix`} data-prefix={getSymbolFromCurrency(usedCurrency)}>
             {localization.loanTotal}
             <input className='credit-result__value form-input' type='text' disabled value={CreditResult.getPropValue(loanTotal)} />
           </label>
 
-          <label className={`credit-result__detail ${depositTotal ? 'is-active' : ''} form-label form-label--with-prefix`} data-prefix={getSymbolFromCurrency(currency)}>
+          <label className={`credit-result__detail ${depositTotal ? 'is-active' : ''} form-label form-label--with-prefix`} data-prefix={getSymbolFromCurrency(usedCurrency)}>
             {localization.depositTotal}
             <input className='credit-result__value form-input' type='text' disabled value={CreditResult.getPropValue(depositTotal)} />
           </label>
         </div>
         <label className={`credit-result__detail ${monthlyRate ? 'is-active' : ''}`}>
           {localization.monthlyRate}
-          <input className='credit-result__value form-input' type='text' disabled value={CreditResult.getPayoffDetails(currency, monthlyRate, monthTotal, localization.months)} />
+          <input className='credit-result__value form-input' type='text' disabled value={CreditResult.getPayoffDetails(usedCurrency, monthlyRate, monthTotal, localization.months)} />
         </label>
       </div>
     );
@@ -66,7 +67,7 @@ class CreditResult extends Component {
 
 CreditResult.propTypes = {
   localization: PropTypes.object.isRequired,
-  currency: PropTypes.string,
+  defaultCurrency: PropTypes.string,
   calculation: PropTypes.shape({
     squareMeterPrice: PropTypes.string,
     flatSize: PropTypes.string,

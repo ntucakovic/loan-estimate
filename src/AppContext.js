@@ -35,9 +35,9 @@ class AppProvider extends React.Component {
 
     // Merge local storage calculations with draft one.
     const calculations = Object.assign({}, { ...AppProvider.DEFAULT_STATE.calculations }, { ...storageJson.calculations });
-    const { currency = null } = storageJson;
+    const { defaultCurrency = null } = storageJson;
 
-    this.state = { calculations, currency };
+    this.state = { calculations, defaultCurrency };
   }
 
   getCalculation = (calculationId) => {
@@ -129,11 +129,11 @@ class AppProvider extends React.Component {
     };
   }
 
-  setCurrency = (currencyInput) => {
+  setDefaultCurrency = (currencyInput) => {
     const currency = getSymbolFromCurrency(currencyInput);
 
     if (currency) {
-      this.setState({ currency: currencyInput }, this.updateLocalStorage);
+      this.setState({ defaultCurrency: currencyInput }, this.updateLocalStorage);
     }
   }
 
@@ -155,8 +155,8 @@ class AppProvider extends React.Component {
         removeCalculation: this.removeCalculation,
         updateCalculation: this.updateCalculation,
 
-        currency: this.state.currency,
-        setCurrency: this.setCurrency
+        defaultCurrency: this.state.defaultCurrency,
+        setDefaultCurrency: this.setDefaultCurrency
       }}>
         {this.props.children}
       </AppContext.Provider>
