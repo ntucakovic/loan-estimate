@@ -7,6 +7,8 @@ import { AppContext } from '../AppContext';
 import CreditInput from '../components/CreditInput';
 import CreditCalculationResult from '../components/CreditCalculationResult';
 import Calculations from '../components/Calculations';
+import Share from '../components/Share';
+import { share } from '../modules/data';
 
 class CreditInputPage extends React.Component {
   static contextTypes = {
@@ -101,6 +103,7 @@ class CreditInputPage extends React.Component {
                   )}
                 </CreditInput>
               </div>
+              <Share {...share} />
             </React.Fragment>
           );
         }}

@@ -5,4 +5,12 @@ const repository = {
   title: 'Read code on GitHub'
 };
 
-export { repository };
+const share = {
+  url: process.env.REACT_APP_SHARE_URL || 'https://loan-estimator.ntmedia.me',
+  title: 'Easily estimate a loan',
+  hashtags: ['react', 'reactjs', 'frontend', 'ContextAPI'],
+  hashtag: '#reactjs',
+  via: '_ntucakovic'
+};
+
+export { repository, share };

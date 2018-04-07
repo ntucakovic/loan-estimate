@@ -237,6 +237,12 @@ body,
     white-space: nowrap;
     color: #02141d; }
 
+.share {
+  display: flex; }
+  .share > * {
+    height: 32px;
+    margin: 0 10px; }
+
 .app {
   display: flex;
   flex-direction: column;
