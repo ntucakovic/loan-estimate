@@ -12,6 +12,7 @@
     &::before {
       padding: 0;
       transition: padding $transition-duration-base;
+      color: $color-accent;
     }
 
     &.is-active {

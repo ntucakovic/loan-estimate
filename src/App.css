@@ -17,6 +17,7 @@ label {
 input,
 select {
   width: 100%;
+  height: 28px;
   padding: 5px;
   transition: box-shadow 0.2s;
   border: 0;
@@ -29,16 +30,17 @@ select {
   @media (min-height: 569px) {
     input,
     select {
+      height: 38px;
       font-size: 1.5rem; } }
   input:focus,
   select:focus {
+    border-radius: 0;
     box-shadow: inset 0 -3px #0c84bb; }
   input[disabled],
   select[disabled] {
     color: #0c84bb;
-    border-radius: 5px;
     background: transparent;
-    box-shadow: inset 0 -1px #eee; }
+    box-shadow: none; }
 
 button {
   height: 40px;
@@ -51,8 +53,6 @@ button {
 .form-field-group {
   display: flex;
   align-items: flex-end; }
-  .form-field-group > *:not(:last-child) {
-    margin-right: 10px; }
   .form-field-group--md-up {
     display: block; }
     .form-field-group--md-up > * {
@@ -71,7 +71,7 @@ button {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 18px;
+    width: 16px;
     padding: 5px;
     content: attr(data-prefix);
     font-size: 1rem; }
@@ -79,7 +79,7 @@ button {
       .form-label--with-prefix::before {
         line-height: 1.5rem; } }
   .form-label--with-prefix .form-input {
-    padding-left: 23px; }
+    padding-left: 21px; }
 
 html {
   font-size: 16px; }
@@ -139,7 +139,8 @@ body,
   opacity: 0.3; }
   .credit-result__detail::before {
     padding: 0;
-    transition: padding 0.2s; }
+    transition: padding 0.2s;
+    color: #0c84bb; }
   .credit-result__detail.is-active {
     opacity: 1; }
     .credit-result__detail.is-active::before {

@@ -138,8 +138,8 @@ class AppProvider extends React.Component {
   }
 
   updateLocalStorage = () => {
-    const { calculations = {}, currency } = this.state;
-    window.localStorage.setItem(AppProvider.LOCAL_STORAGE_KEY, JSON.stringify({ calculations, currency }));
+    const { calculations = {}, defaultCurrency } = this.state;
+    window.localStorage.setItem(AppProvider.LOCAL_STORAGE_KEY, JSON.stringify({ calculations, defaultCurrency }));
   }
 
   render () {

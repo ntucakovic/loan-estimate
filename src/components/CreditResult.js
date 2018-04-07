@@ -23,7 +23,7 @@ class CreditResult extends Component {
     const isUSD = currency === 'USD';
 
     if (rate !== '-' && months !== '-') {
-      return `${isUSD ? `${currencySymbol} ` : ''}${rate}${!isUSD ? ` ${currencySymbol}` : ''} x ${months} ${localizationMonths}`;
+      return `${isUSD ? `${currencySymbol}` : ''}${rate}${!isUSD ? ` ${currencySymbol}` : ''} x ${months} ${localizationMonths}`;
     }
 
     return '-';

@@ -120,7 +120,7 @@ class CreditForm extends Component {
                     onChange={updateCalculation(calculation.id)} />
                 </label>
 
-                <label htmlFor='squareMeterPrice' className='form-label'>
+                <label htmlFor='squareMeterPrice' className='form-label form-label--with-prefix' data-prefix={getSymbolFromCurrency(usedCurrency)}>
                   <span>{localization.squareMeterPrice}</span>
 
                   <input
@@ -131,6 +131,23 @@ class CreditForm extends Component {
                     value={calculation.squareMeterPrice || ''}
                     onChange={updateCalculation(calculation.id)} />
                 </label>
+
+                {!showTotalAmountInput && (
+                  <label htmlFor='currency' className='form-label'>
+                    <span>{localization.currency}</span>
+
+                    <select name='currency' id='currency' onChange={(event) => {
+                      this.setDefaultCurrency(event);
+                      updateCalculation(calculation.id)(event);
+                    }} defaultValue={usedCurrency}>
+                      {CreditForm.ALLOWED_CURRENCIES.map(currentCurrency => (
+                        <option
+                          key={currentCurrency}
+                          value={currentCurrency}>{getSymbolFromCurrency(currentCurrency)}</option>
+                      ))}
+                    </select>
+                  </label>
+                )}
               </div>
             )}
           </Transition>

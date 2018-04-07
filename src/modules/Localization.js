@@ -21,8 +21,8 @@ const strings = {
     currency: 'Currency'
   },
   sr: {
-    squareMeterPrice: 'Cena po m²',
-    flatSize: 'Kvadratura (m²)',
+    squareMeterPrice: 'Cena/m²',
+    flatSize: 'Kvadratura',
     depositPercentage: 'Depozit',
     interest: 'Kamata',
     term: 'Period otplate (u godinama)',
