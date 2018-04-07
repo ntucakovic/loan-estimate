@@ -11,8 +11,6 @@ label {
   @media (min-height: 569px) {
     label {
       margin-bottom: 10px; } }
-  label:not(:only-child):last-child {
-    margin-bottom: 0; }
   label:not([disabled]) {
     cursor: pointer; }
 
@@ -26,7 +24,7 @@ input {
   box-shadow: inset 0 -1px #ddd;
   font-size: 1rem;
   font-weight: 300; }
-  @media (min-height: 768px) {
+  @media (min-height: 569px) {
     input {
       font-size: 1.5rem; } }
   input:focus {
@@ -61,6 +59,23 @@ body,
   position: relative;
   width: 100%;
   padding-bottom: 15px; }
+  .credit-input__label {
+    position: relative; }
+    .credit-input__label span {
+      white-space: nowrap; }
+    .credit-input__label--with-prefix::before {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 18px;
+      padding: 5px;
+      content: attr(data-prefix);
+      font-size: 1rem; }
+      @media (min-height: 569px) {
+        .credit-input__label--with-prefix::before {
+          line-height: 1.5rem; } }
+    .credit-input__label--with-prefix input {
+      padding-left: 23px; }
   .credit-input__cta {
     bottom: 0;
     left: 0;
@@ -228,10 +243,7 @@ body,
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-    flex-grow: 1; }
-    @media (min-height: 569px) {
-      .app__scroll {
-        flex-grow: 0; } }
+    flex-grow: 0; }
   .app > * {
     z-index: 1; }
     .app > *:not(:last-child) {

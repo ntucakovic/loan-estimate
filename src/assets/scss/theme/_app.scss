@@ -20,11 +20,7 @@
     border-radius: $component-border-radius;
     background: $component-background;
     box-shadow: $component-box-shadow;
-    flex-grow: 1;
-
-    @media (min-height: $screen-md-min-y) {
-      flex-grow: 0;
-    }
+    flex-grow: 0;
   }
 
   > * {

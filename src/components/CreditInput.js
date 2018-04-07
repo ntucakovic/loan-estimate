@@ -59,7 +59,7 @@ class CreditInput extends Component {
                 ...this.getTransitionStyles(state)
               }}>
                 <label htmlFor='squareMeterPrice' className={`credit-input__label`}>
-                  {localization.totalAmount}
+                  <span>{localization.totalAmount}</span>
 
                   <input
                     id='totalAmountInput'
@@ -83,7 +83,7 @@ class CreditInput extends Component {
                 ...this.getTransitionStyles(state)
               }}>
                 <label htmlFor='flatSize' className='credit-input__label'>
-                  {localization.flatSize}
+                  <span>{localization.flatSize}</span>
 
                   <input
                     id='flatSize'
@@ -95,7 +95,7 @@ class CreditInput extends Component {
                 </label>
 
                 <label htmlFor='squareMeterPrice' className='credit-input__label'>
-                  {localization.squareMeterPrice}
+                  <span>{localization.squareMeterPrice}</span>
 
                   <input
                     id='squareMeterPrice'
@@ -109,39 +109,44 @@ class CreditInput extends Component {
             )}
           </Transition>
 
-          <label htmlFor='depositPercentage' className='credit-input__label'>
-            {localization.depositPercentage}
+          <div className='credit-input__field-group credit-input__field-group--md-up'>
+            <div className='credit-input__field-group'>
+              <label htmlFor='depositPercentage' className='credit-input__label credit-input__label--with-prefix' data-prefix='%'>
+                <span>{localization.depositPercentage}</span>
 
-            <input
-              id='depositPercentage'
-              name='depositPercentage'
-              className='credit-input__input'
-              type='number' min='0' max='100' step='0.1'
-              value={calculation.depositPercentage || ''}
-              onChange={updateCalculation(calculation.id)} />
-          </label>
-          <label htmlFor='interest' className='credit-input__label'>
-            {localization.interest}
+                <input
+                  id='depositPercentage'
+                  name='depositPercentage'
+                  className='credit-input__input'
+                  type='number' min='0' max='100' step='0.1'
+                  value={calculation.depositPercentage || ''}
+                  onChange={updateCalculation(calculation.id)} />
+              </label>
+              <label htmlFor='interest' className='credit-input__label credit-input__label--with-prefix' data-prefix='%'>
+                <span>{localization.interest}</span>
 
-            <input
-              id='interest'
-              name='interest'
-              className='credit-input__input'
-              type='number' min='0' max='100' step='0.1'
-              value={calculation.interest || ''}
-              onChange={updateCalculation(calculation.id)} />
-          </label>
-          <label htmlFor='term' className='credit-input__label'>
-            {localization.term}
+                <input
+                  id='interest'
+                  name='interest'
+                  className='credit-input__input'
+                  type='number' min='0' max='100' step='0.1'
+                  value={calculation.interest || ''}
+                  onChange={updateCalculation(calculation.id)} />
+              </label>
+            </div>
 
-            <input
-              id='term'
-              name='term'
-              className='credit-input__input'
-              type='number' min='0' max='30' step='1'
-              value={calculation.term || ''}
-              onChange={updateCalculation(calculation.id)} />
-          </label>
+            <label htmlFor='term' className='credit-input__label'>
+              <span>{localization.term}</span>
+
+              <input
+                id='term'
+                name='term'
+                className='credit-input__input'
+                type='number' min='0' max='30' step='1'
+                value={calculation.term || ''}
+                onChange={updateCalculation(calculation.id)} />
+            </label>
+          </div>
 
           {this.props.children}
         </div>
