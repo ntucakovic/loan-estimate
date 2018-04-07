@@ -18,11 +18,15 @@
   }
 
   &__item {
-    padding: $component-padding;
+    padding: $component-padding / 2;
     text-decoration: none;
     color: $color-accent;
     background-color: $white;
     flex-grow: 1;
+
+    @media (min-height: $screen-md-min-y) {
+      padding: $component-padding;
+    }
 
     &.is-active {
       position: relative;

@@ -190,11 +190,14 @@ body,
   .calculations__items {
     flex-grow: 1; }
   .calculations__item {
-    padding: 15px;
+    padding: 7.5px;
     text-decoration: none;
     color: #0c84bb;
     background-color: #fff;
     flex-grow: 1; }
+    @media (min-height: 569px) {
+      .calculations__item {
+        padding: 15px; } }
     .calculations__item.is-active {
       position: relative;
       overflow: hidden;
