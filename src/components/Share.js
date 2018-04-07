@@ -28,7 +28,7 @@ class Share extends React.Component {
   }
 
   updateIconSize = () => {
-    const iconSize = window.outerHeight >= resolutions.y.md ? Share.ICON_LARGE : Share.ICON_SMALL;
+    const iconSize = window.outerHeight >= resolutions.y.md && window.outerWidth >= resolutions.x.md ? Share.ICON_LARGE : Share.ICON_SMALL;
 
     this.setState({ iconSize });
   }
