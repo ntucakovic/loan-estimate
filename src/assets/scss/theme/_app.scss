@@ -12,16 +12,17 @@
   &__scroll {
     position: relative;
     z-index: 1;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     width: $app-width;
     max-width: $app-max-width;
-    padding: $component-padding;
+    padding: $component-padding $component-padding 0;
     border-radius: $component-border-radius;
     background: $component-background;
     box-shadow: $component-box-shadow;
     flex-grow: 1;
 
-    @media ($screen-md-min-y) {
+    @media (min-height: $screen-md-min-y) {
       flex-grow: 0;
     }
   }

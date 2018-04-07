@@ -42,7 +42,7 @@ CreditCalculationResult.propTypes = {
     depositPercentage: PropTypes.string,
     interest: PropTypes.string,
     term: PropTypes.string,
-    flatPrice: PropTypes.number,
+    totalAmount: PropTypes.number,
     depositTotal: PropTypes.number,
     loanTotal: PropTypes.number,
     monthTotal: PropTypes.number,
@@ -52,9 +52,9 @@ CreditCalculationResult.propTypes = {
 
 CreditCalculationResult.defaultProps = {
   calculation: {
-    flatPrice: null,
-    depositTotal: null,
+    totalAmount: null,
     loanTotal: null,
+    depositTotal: null,
     monthTotal: null,
     monthlyRate: null
   }

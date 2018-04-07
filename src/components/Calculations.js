@@ -33,7 +33,7 @@ class Calculations extends React.Component {
             return (
               <NavLink to={`/calculations/${calculation.id}`} key={key} activeClassName='is-active' className={`calculations__item`} onClick={this.handleNavLinkClick}>
                 <h2>{calculation.name}</h2>
-                <p>{numberFormat(calculation.flatPrice)} + {calculation.interest}%</p>
+                <p>{numberFormat(calculation.totalAmount)} + {calculation.interest}%</p>
               </NavLink>
             );
           })}

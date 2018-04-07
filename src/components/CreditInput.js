@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { CSSTransition, Transition } from 'react-transition-group'
 
 class CreditInput extends Component {
+  static TRANSITION_DURATION = 300;
+  static LABEL_HEIGHT = 68;
+
+  static DEFAULT_TRANSITION_STYLE = {
+    transition: `opacity ${CreditInput.TRANSITION_DURATION}ms ease-in-out, height ${CreditInput.TRANSITION_DURATION}ms ease-in-out, transform ${CreditInput.TRANSITION_DURATION}ms ease-in-out`,
+    opacity: 0,
+    height: 0,
+    transform: `translateX(100%)`
+  }
+
   static DEFAULT_PARAMETERS = {
     squareMeterPrice: '',
     flatSize: '',
@@ -10,34 +21,94 @@ class CreditInput extends Component {
     term: ''
   }
 
+  getTransitionStyles = (state) => {
+    const transitionStyles = {
+      entering: {
+        opacity: 0,
+        height: 0,
+        transform: `translateX(100%)`
+      },
+      entered: {
+        opacity: 1,
+        height: CreditInput.LABEL_HEIGHT,
+        transform: `translateX(0)`
+      }
+    };
+
+    return {
+      ...CreditInput.DEFAULT_TRANSITION_STYLE,
+      ...transitionStyles[state]
+    };
+  }
+
   render () {
     const { calculation = {}, localization, updateCalculation } = this.props;
+    const showTotalAmountInput = !(calculation.squareMeterPrice && calculation.flatSize);
+    const showAlternativeInputs = !calculation.totalAmountInput;
 
     return (
       <React.Fragment>
         <div className='credit-input' key='credit-input'>
-          <label htmlFor='squareMeterPrice' className='credit-input__label'>
-            {localization.squareMeterPrice}
+          <Transition
+            in={showTotalAmountInput}
+            timeout={300}
+            mountOnEnter
+            unmountOnExit>
+            {state => (
+              <div style={{
+                ...this.getTransitionStyles(state)
+              }}>
+                <label htmlFor='squareMeterPrice' className={`credit-input__label`}>
+                  {localization.totalAmount}
 
-            <input
-              id='squareMeterPrice'
-              name='squareMeterPrice'
-              className='credit-input__input'
-              type='number' min='0' step='50'
-              value={calculation.squareMeterPrice || ''}
-              onChange={updateCalculation(calculation.id)} />
-          </label>
-          <label htmlFor='flatSize' className='credit-input__label'>
-            {localization.flatSize}
+                  <input
+                    id='totalAmountInput'
+                    name='totalAmountInput'
+                    className='credit-input__input'
+                    type='number' min='0' step='50'
+                    value={calculation.totalAmountInput || ''}
+                    onChange={updateCalculation(calculation.id)} />
+                </label>
+              </div>
+            )}
+          </Transition>
 
-            <input
-              id='flatSize'
-              name='flatSize'
-              className='credit-input__input'
-              type='number' min='0'
-              value={calculation.flatSize || ''}
-              onChange={updateCalculation(calculation.id)} />
-          </label>
+          <Transition
+            in={showAlternativeInputs}
+            timeout={300}
+            mountOnEnter
+            unmountOnExit>
+            {state => (
+              <div className={`credit-input__field-group ${state}`} style={{
+                ...this.getTransitionStyles(state)
+              }}>
+                <label htmlFor='flatSize' className='credit-input__label'>
+                  {localization.flatSize}
+
+                  <input
+                    id='flatSize'
+                    name='flatSize'
+                    className='credit-input__input'
+                    type='number' min='0'
+                    value={calculation.flatSize || ''}
+                    onChange={updateCalculation(calculation.id)} />
+                </label>
+
+                <label htmlFor='squareMeterPrice' className='credit-input__label'>
+                  {localization.squareMeterPrice}
+
+                  <input
+                    id='squareMeterPrice'
+                    name='squareMeterPrice'
+                    className='credit-input__input'
+                    type='number' min='0' step='50'
+                    value={calculation.squareMeterPrice || ''}
+                    onChange={updateCalculation(calculation.id)} />
+                </label>
+              </div>
+            )}
+          </Transition>
+
           <label htmlFor='depositPercentage' className='credit-input__label'>
             {localization.depositPercentage}
 

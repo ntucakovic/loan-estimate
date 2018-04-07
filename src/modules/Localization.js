@@ -3,11 +3,11 @@ import LocalizedStrings from 'react-localization';
 const strings = {
   en: {
     squareMeterPrice: 'Price per square',
-    flatSize: 'Real estate size',
+    flatSize: 'Square footage',
     depositPercentage: 'Deposit percentage',
     interest: 'Interest percentage',
     term: 'Payment term (in years)',
-    flatPrice: 'Real estate price',
+    totalAmount: 'Real estate value',
     depositTotal: 'Deposit total',
     loanTotal: 'Loan total',
     monthlyRate: 'Monthly rate',
@@ -18,12 +18,12 @@ const strings = {
     chooseCalculationName: 'Enter calculation alias, for easier recognition'
   },
   sr: {
-    squareMeterPrice: 'Cena m²',
-    flatSize: 'Veličina nekretnine m²',
+    squareMeterPrice: 'Cena po m²',
+    flatSize: 'Kvadratura (m²)',
     depositPercentage: 'Procenat depozita',
     interest: 'Procenat kamate',
     term: 'Period otplate (u godinama)',
-    flatPrice: 'Cena nekretnine',
+    totalAmount: 'Vrednost nekretnine',
     depositTotal: 'Učešće',
     loanTotal: 'Iznos kredita',
     monthlyRate: 'Mesečna rata',

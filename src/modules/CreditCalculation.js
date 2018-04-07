@@ -1,27 +1,27 @@
 class CreditCalculation {
   static DEFAULT_RESULTS = {
-    flatPrice: null,
+    totalAmount: null,
     depositTotal: null,
     loanTotal: null,
     monthTotal: null,
     monthlyRate: null
   }
 
-  static getRates ({ squareMeterPrice = null, flatSize = null, depositPercentage = null, interest = null, term = null, ...rest }) {
+  static getRates ({ totalAmountInput = null, squareMeterPrice = null, flatSize = null, depositPercentage = null, interest = null, term = null, ...rest }) {
     let result = {};
 
-    if (!(squareMeterPrice && flatSize)) {
+    if (!(squareMeterPrice && flatSize) && !totalAmountInput) {
       return Object.assign({}, CreditCalculation.DEFAULT_RESULTS, result);
     }
 
-    result.flatPrice = squareMeterPrice * flatSize;
+    result.totalAmount = totalAmountInput || (squareMeterPrice * flatSize);
 
     if (!depositPercentage) {
       return Object.assign({}, CreditCalculation.DEFAULT_RESULTS, result);
     }
 
-    result.depositTotal = result.flatPrice * (depositPercentage / 100);
-    result.loanTotal = result.flatPrice - result.depositTotal;
+    result.depositTotal = result.totalAmount * (depositPercentage / 100);
+    result.loanTotal = result.totalAmount - result.depositTotal;
 
     if (!term) {
       return Object.assign({}, CreditCalculation.DEFAULT_RESULTS, result);

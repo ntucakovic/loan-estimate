@@ -59,14 +59,16 @@ body,
 
 .credit-input {
   position: relative;
-  width: 100%; }
+  width: 100%;
+  padding-bottom: 15px; }
   .credit-input__cta {
     bottom: 0;
     left: 0;
     margin-bottom: -15px;
     padding: 15px 0; }
     .credit-input__cta--add {
-      position: sticky; }
+      position: sticky;
+      padding: 15px 0; }
   .credit-input__button {
     display: block;
     width: 100%;
@@ -84,6 +86,8 @@ body,
         opacity: 1; }
     .credit-input__button--remove {
       background-color: #ff6347; }
+  .credit-input__field-group {
+    display: flex; }
 
 .credit-calculation-result input {
   padding-top: 0;
@@ -211,15 +215,16 @@ body,
   .app__scroll {
     position: relative;
     z-index: 1;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     width: 90vw;
     max-width: 500px;
-    padding: 15px;
+    padding: 15px 15px 0;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
     flex-grow: 1; }
-    @media (569px) {
+    @media (min-height: 569px) {
       .app__scroll {
         flex-grow: 0; } }
   .app > * {
