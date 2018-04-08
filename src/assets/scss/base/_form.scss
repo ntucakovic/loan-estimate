@@ -36,6 +36,7 @@ select {
   }
 
   &[disabled] {
+    height: auto;
     color: $color-accent;
     background: transparent;
     box-shadow: none;

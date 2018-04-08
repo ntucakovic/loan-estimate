@@ -23,6 +23,19 @@ class CreditForm extends Component {
     term: ''
   }
 
+  componentDidMount = () => {
+    const { calculation = {}, defaultCurrency, updateCalculation } = this.props;
+
+    // If calculation doesn't have currency set, set it to default's app currency,
+    // so it's not changed when new calculation sets custom currency.
+    if (!calculation.currency) {
+      updateCalculation(calculation.id)({ target: {
+        name: 'currency',
+        value: defaultCurrency
+      }});
+    }
+  }
+
   getTransitionStyles = (state) => {
     const transitionStyles = {
       entering: {
@@ -86,7 +99,7 @@ class CreditForm extends Component {
                     <select name='currency' id='currency' onChange={(event) => {
                       this.setDefaultCurrency(event);
                       updateCalculation(calculation.id)(event);
-                    }} defaultValue={usedCurrency}>
+                    }} value={usedCurrency}>
                       {CreditForm.ALLOWED_CURRENCIES.map(currentCurrency => (
                         <option
                           key={currentCurrency}
