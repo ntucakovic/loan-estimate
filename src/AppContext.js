@@ -16,7 +16,7 @@ class AppProvider extends React.Component {
     calculations: {
       draft: { ...CreditForm.DEFAULT_PARAMETERS }
     },
-    defaultCurrency: null
+    defaultCurrency: 'EUR'
   };
 
   static LOCAL_STORAGE_KEY = 'CREDIT_CALCULATIONS';
@@ -30,19 +30,22 @@ class AppProvider extends React.Component {
     // Set language.
     localization.setLanguage(getLanguage());
 
+    let state = { ...AppProvider.DEFAULT_STATE };
+
     try {
       const storage = window.localStorage.getItem(AppProvider.LOCAL_STORAGE_KEY);
-      const storageJson = JSON.parse(storage) || { calculations: {} };
+      const storageJson = JSON.parse(storage);
 
-      // Merge local storage calculations with draft one.
-      const calculations = Object.assign({}, { ...AppProvider.DEFAULT_STATE.calculations }, { ...storageJson.calculations });
-      const { defaultCurrency = null } = storageJson;
-
-      this.state = { calculations, defaultCurrency };
+      if (storageJson) {
+        const calculations = Object.assign({}, { ...AppProvider.DEFAULT_STATE.calculations }, { ...storageJson.calculations });
+        const { defaultCurrency = AppProvider.DEFAULT_STATE.defaultCurrency } = storageJson;
+        state = { calculations, defaultCurrency };
+      }
     } catch (e) {
       // Local Storage doesn't exist.
-      this.state = { calculations: { ...AppProvider.DEFAULT_STATE.calculations } };
     }
+
+    this.state = state;
   }
 
   getCalculation = (calculationId) => {
