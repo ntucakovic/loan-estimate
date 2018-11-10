@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { resolutions } from '../modules/constants';
+import PropTypes from "prop-types";
+import React from "react";
 
 import {
-  FacebookShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
   FacebookIcon,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
   TwitterIcon,
-  LinkedinIcon
-} from 'react-share';
+  TwitterShareButton
+} from "react-share";
+import { resolutions } from "../modules/constants";
 
 class Share extends React.Component {
   static ICON_SMALL = 32;
@@ -17,41 +17,55 @@ class Share extends React.Component {
 
   state = {
     iconSize: Share.ICON_SMALL
-  }
+  };
 
-  componentDidMount () {
+  componentDidMount() {
     this.updateIconSize();
   }
 
-  componentWillMount () {
-    window.addEventListener('resize', this.updateIconSize);
+  componentWillMount() {
+    window.addEventListener("resize", this.updateIconSize);
   }
 
-  componentWillUnmount () {
-    window.removeEventListener('resize', this.updateIconSize);
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateIconSize);
   }
 
   updateIconSize = () => {
-    const iconSize = window.outerHeight >= resolutions.y.md && window.outerWidth >= resolutions.x.md ? Share.ICON_LARGE : Share.ICON_SMALL;
+    const iconSize =
+      window.outerHeight >= resolutions.y.md &&
+      window.outerWidth >= resolutions.x.md
+        ? Share.ICON_LARGE
+        : Share.ICON_SMALL;
 
     this.setState({ iconSize });
-  }
+  };
 
-  render () {
+  render() {
     const { url, title, hashtags, hashtag, via, localization } = this.props;
     const { iconSize } = this.state;
 
     return (
-      <div className='share'>
-        <span className='share__label' style={{
-          lineHeight: `${iconSize}px`
-        }}>{localization.share}</span>
+      <div className="share">
+        <span
+          className="share__label"
+          style={{
+            lineHeight: `${iconSize}px`
+          }}
+        >
+          {localization.share}
+        </span>
 
         <FacebookShareButton quote={title} url={url} hashtag={hashtag}>
           <FacebookIcon size={iconSize} round />
         </FacebookShareButton>
 
-        <TwitterShareButton title={title} url={url} hashtags={hashtags} via={via}>
+        <TwitterShareButton
+          title={title}
+          url={url}
+          hashtags={hashtags}
+          via={via}
+        >
           <TwitterIcon size={iconSize} round />
         </TwitterShareButton>
 
