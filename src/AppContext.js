@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import getSymbolFromCurrency from 'currency-symbol-map';
+import getSymbolFromCurrency from "currency-symbol-map";
+import PropTypes from "prop-types";
+import React from "react";
 
-import localization from './modules/Localization';
-import { repository } from './modules/data';
-import { getLanguage } from './modules/helperFunctions';
-import CreditCalculation from './modules/CreditCalculation';
+import CreditForm from "./components/CreditForm";
+import CreditCalculation from "./modules/CreditCalculation";
+import { repository } from "./modules/data";
+import { getLanguage } from "./modules/helperFunctions";
 
-import CreditForm from './components/CreditForm';
+import localization from "./modules/Localization";
 
 const AppContext = React.createContext();
 
@@ -16,15 +16,15 @@ class AppProvider extends React.Component {
     calculations: {
       draft: { ...CreditForm.DEFAULT_PARAMETERS }
     },
-    defaultCurrency: 'EUR'
+    defaultCurrency: "EUR"
   };
 
-  static LOCAL_STORAGE_KEY = 'CREDIT_CALCULATIONS';
+  static LOCAL_STORAGE_KEY = "CREDIT_CALCULATIONS";
   static contextTypes = {
     router: PropTypes.object
-  }
+  };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     // Set language.
@@ -33,12 +33,20 @@ class AppProvider extends React.Component {
     let state = { ...AppProvider.DEFAULT_STATE };
 
     try {
-      const storage = window.localStorage.getItem(AppProvider.LOCAL_STORAGE_KEY);
+      const storage = window.localStorage.getItem(
+        AppProvider.LOCAL_STORAGE_KEY
+      );
       const storageJson = JSON.parse(storage);
 
       if (storageJson) {
-        const calculations = Object.assign({}, { ...AppProvider.DEFAULT_STATE.calculations }, { ...storageJson.calculations });
-        const { defaultCurrency = AppProvider.DEFAULT_STATE.defaultCurrency } = storageJson;
+        const calculations = Object.assign(
+          {},
+          { ...AppProvider.DEFAULT_STATE.calculations },
+          { ...storageJson.calculations }
+        );
+        const {
+          defaultCurrency = AppProvider.DEFAULT_STATE.defaultCurrency
+        } = storageJson;
         state = { calculations, defaultCurrency };
       }
     } catch (e) {
@@ -48,15 +56,15 @@ class AppProvider extends React.Component {
     this.state = state;
   }
 
-  getCalculation = (calculationId) => {
+  getCalculation = calculationId => {
     const { calculations } = this.state;
 
     if (calculationId) {
       return calculations[calculationId] || null;
     }
 
-    return calculations['draft'];
-  }
+    return calculations["draft"];
+  };
 
   saveCalculation = (calculationId = null) => {
     return () => {
@@ -67,7 +75,13 @@ class AppProvider extends React.Component {
       calculationId = calculationId || new Date().getTime();
       let { calculations } = this.state;
 
-      const name = window.prompt(localization.getString('chooseCalculationName', localization.getLanguage()), calculation.name || '');
+      const name = window.prompt(
+        localization.getString(
+          "chooseCalculationName",
+          localization.getLanguage()
+        ),
+        calculation.name || ""
+      );
 
       if (!name) {
         return;
@@ -77,7 +91,8 @@ class AppProvider extends React.Component {
       calculation.name = name;
 
       // Update existing calculations.
-      calculations = Object.assign({},
+      calculations = Object.assign(
+        {},
         // Add previous calculations.
         { ...calculations },
         // Add new calculation.
@@ -87,14 +102,14 @@ class AppProvider extends React.Component {
       );
 
       this.setState({ calculations }, () => {
-        this.updateLocalStorage() && this.context.router.history.push('/');
+        this.updateLocalStorage() && this.context.router.history.push("/");
       });
     };
-  }
+  };
 
   updateCalculation = (calculationId = null) => {
-    return (event) => {
-      const calculationKey = calculationId || 'draft';
+    return event => {
+      const calculationKey = calculationId || "draft";
 
       let { ...calculation } = this.getCalculation(calculationId);
       let { calculations = {} } = this.state;
@@ -110,18 +125,22 @@ class AppProvider extends React.Component {
       calculation = Object.assign({}, calculation, result);
 
       // Update existing calculation.
-      calculations = Object.assign({},
+      calculations = Object.assign(
+        {},
         // Add previous calculations.
         { ...calculations },
         // Update existing calculation.
         { [calculationKey]: calculation }
       );
 
-      this.setState({
-        calculations
-      }, this.updateLocalStorage);
+      this.setState(
+        {
+          calculations
+        },
+        this.updateLocalStorage
+      );
     };
-  }
+  };
 
   removeCalculation = (calculationId = null) => {
     return () => {
@@ -132,44 +151,52 @@ class AppProvider extends React.Component {
       }
 
       this.setState({ calculations }, () => {
-        this.updateLocalStorage() && this.context.router.history.push('/');
+        this.updateLocalStorage() && this.context.router.history.push("/");
       });
     };
-  }
+  };
 
-  setDefaultCurrency = (currencyInput) => {
+  setDefaultCurrency = currencyInput => {
     const currency = getSymbolFromCurrency(currencyInput);
 
     if (currency) {
-      this.setState({ defaultCurrency: currencyInput }, this.updateLocalStorage);
+      this.setState(
+        { defaultCurrency: currencyInput },
+        this.updateLocalStorage
+      );
     }
-  }
+  };
 
   updateLocalStorage = () => {
     try {
       const { calculations = {}, defaultCurrency } = this.state;
-      window.localStorage.setItem(AppProvider.LOCAL_STORAGE_KEY, JSON.stringify({ calculations, defaultCurrency }));
+      window.localStorage.setItem(
+        AppProvider.LOCAL_STORAGE_KEY,
+        JSON.stringify({ calculations, defaultCurrency })
+      );
     } catch (e) {
       // Local storage doesn't exist.
     }
-  }
+  };
 
-  render () {
+  render() {
     return (
-      <AppContext.Provider value={{
-        localization,
-        repository,
+      <AppContext.Provider
+        value={{
+          localization,
+          repository,
 
-        calculations: this.state.calculations,
+          calculations: this.state.calculations,
 
-        getCalculation: this.getCalculation,
-        saveCalculation: this.saveCalculation,
-        removeCalculation: this.removeCalculation,
-        updateCalculation: this.updateCalculation,
+          getCalculation: this.getCalculation,
+          saveCalculation: this.saveCalculation,
+          removeCalculation: this.removeCalculation,
+          updateCalculation: this.updateCalculation,
 
-        defaultCurrency: this.state.defaultCurrency,
-        setDefaultCurrency: this.setDefaultCurrency
-      }}>
+          defaultCurrency: this.state.defaultCurrency,
+          setDefaultCurrency: this.setDefaultCurrency
+        }}
+      >
         {this.props.children}
       </AppContext.Provider>
     );

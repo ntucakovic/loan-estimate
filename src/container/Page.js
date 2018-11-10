@@ -1,24 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
-import { Transition } from 'react-transition-group';
-
-import { AppContext } from '../AppContext';
-import CreditForm from '../components/CreditForm';
-import CreditResult from '../components/CreditResult';
-import CreditNavigation from '../components/CreditNavigation';
-import Share from '../components/Share';
-import { share } from '../modules/data';
+import PropTypes from "prop-types";
+import React from "react";
+import { Redirect } from "react-router-dom";
+import { Transition } from "react-transition-group";
+import { AppContext } from "../AppContext";
+import CreditForm from "../components/CreditForm";
+import CreditNavigation from "../components/CreditNavigation";
+import CreditResult from "../components/CreditResult";
+import Share from "../components/Share";
+import { share } from "../modules/data";
 
 class Page extends React.Component {
   static contextTypes = {
     router: PropTypes.object
-  }
+  };
 
-  static ADD_ACTION = 'ADD_ACTION';
-  static REMOVE_ACTION = 'REMOVE_ACTION';
+  static ADD_ACTION = "ADD_ACTION";
+  static REMOVE_ACTION = "REMOVE_ACTION";
 
-  getAvailableAction = (calculation) => {
+  getAvailableAction = calculation => {
     if (calculation && !calculation.id && calculation.monthlyRate) {
       return Page.ADD_ACTION;
     }
@@ -26,32 +25,42 @@ class Page extends React.Component {
     if (calculation && calculation.id) {
       return Page.REMOVE_ACTION;
     }
-  }
+  };
 
-  render () {
+  render() {
     return (
       <AppContext.Consumer>
-        {({ localization, calculations, getCalculation, saveCalculation, updateCalculation, removeCalculation, defaultCurrency, setDefaultCurrency }) => {
-          const activeCalculationId = this.props.match.params.calculation || null;
+        {({
+          localization,
+          calculations,
+          getCalculation,
+          saveCalculation,
+          updateCalculation,
+          removeCalculation,
+          defaultCurrency,
+          setDefaultCurrency
+        }) => {
+          const activeCalculationId =
+            this.props.match.params.calculation || null;
           const calculation = getCalculation(activeCalculationId);
           const action = this.getAvailableAction(calculation);
-          const showAdd = (action === Page.ADD_ACTION);
+          const showAdd = action === Page.ADD_ACTION;
 
           let actionModifier;
           switch (action) {
             case Page.ADD_ACTION:
-              actionModifier = 'add';
+              actionModifier = "add";
               break;
             case Page.REMOVE_ACTION:
-              actionModifier = 'remove';
+              actionModifier = "remove";
               break;
             default:
-              actionModifier = '';
+              actionModifier = "";
               break;
           }
 
           let savedCalculations = {};
-          Object.keys(calculations).map((id) => {
+          Object.keys(calculations).map(id => {
             const current = calculations[id];
 
             if (current.id) {
@@ -62,16 +71,20 @@ class Page extends React.Component {
           });
 
           if (activeCalculationId && !calculation) {
-            return <Redirect to={'/'} />;
+            return <Redirect to={"/"} />;
           }
 
           return (
             <React.Fragment>
               {Object.keys(savedCalculations).length !== 0 && (
-                <CreditNavigation calculations={savedCalculations} localization={localization} defaultCurrency={defaultCurrency} />
+                <CreditNavigation
+                  calculations={savedCalculations}
+                  localization={localization}
+                  defaultCurrency={defaultCurrency}
+                />
               )}
 
-              <div className='app__scroll'>
+              <div className="app__scroll">
                 <CreditForm
                   localization={localization}
                   calculation={calculation}
@@ -82,15 +95,19 @@ class Page extends React.Component {
                   <CreditResult
                     localization={localization}
                     calculation={calculation}
-                    defaultCurrency={defaultCurrency} />
+                    defaultCurrency={defaultCurrency}
+                  />
 
-                  <Transition
-                    in={showAdd}
-                    timeout={300}
-                    mountOnEnter>
+                  <Transition in={showAdd} timeout={300} mountOnEnter>
                     {state => (
-                      <div className={`credit-input__cta credit-input__cta--add ${state}`}>
-                        <button key='add' className={`credit-input__button credit-input__button--add ${state}`} onClick={saveCalculation(activeCalculationId)}>
+                      <div
+                        className={`credit-input__cta credit-input__cta--add ${state}`}
+                      >
+                        <button
+                          key="add"
+                          className={`credit-input__button credit-input__button--add ${state}`}
+                          onClick={saveCalculation(activeCalculationId)}
+                        >
                           {localization.saveCalculation}
                         </button>
                       </div>
@@ -98,8 +115,14 @@ class Page extends React.Component {
                   </Transition>
 
                   {action === Page.REMOVE_ACTION && (
-                    <div className={`credit-input__cta credit-input__cta--remove`}>
-                      <button key={actionModifier} className={`credit-input__button credit-input__button--remove`} onClick={removeCalculation(activeCalculationId)}>
+                    <div
+                      className={`credit-input__cta credit-input__cta--remove`}
+                    >
+                      <button
+                        key={actionModifier}
+                        className={`credit-input__button credit-input__button--remove`}
+                        onClick={removeCalculation(activeCalculationId)}
+                      >
                         {localization.deleteCalculation}
                       </button>
                     </div>
