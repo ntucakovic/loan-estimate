@@ -5,10 +5,13 @@
  *
  * @return {string}
  */
-export function numberFormat (number, decimals = 2, sections = 3) {
+export function numberFormat(number, decimals = 2, sections = 3) {
   number = Math.round(Number(number) * 1e2) / 1e2;
-  const re = '\\d(?=(\\d{' + sections + '})+' + (decimals > 0 ? '\\.' : '$') + ')';
-  return number.toFixed(Math.max(0, ~~decimals)).replace(new RegExp(re, 'g'), '$&,');
+  const re =
+    "\\d(?=(\\d{" + sections + "})+" + (decimals > 0 ? "\\." : "$") + ")";
+  return number
+    .toFixed(Math.max(0, ~~decimals))
+    .replace(new RegExp(re, "g"), "$&,");
 }
 
 /**
@@ -16,14 +19,19 @@ export function numberFormat (number, decimals = 2, sections = 3) {
  *
  * @returns {string}
  */
-export function getLanguage () {
+export function getLanguage() {
   const translationRegex = /(sr|bs|hr)/;
-  let language = 'en';
+  let language = "en";
 
   try {
-    if (window.navigator.language.match(translationRegex) ||
-      (window.navigator.languages && window.navigator.languages.find((language) => language.match(translationRegex)))) {
-      language = 'sr';
+    if (
+      window.navigator.language.match(translationRegex) ||
+      (window.navigator.languages &&
+        window.navigator.languages.find(language =>
+          language.match(translationRegex)
+        ))
+    ) {
+      language = "sr";
     }
   } catch (e) {
     // Do nothing, just avoid breaking the app.
