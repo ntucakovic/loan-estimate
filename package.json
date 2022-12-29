@@ -12,7 +12,7 @@
     "react-localization": "^1.0.13",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "^3.0.1",
+    "react-scripts": "^5.0.1",
     "react-share": "^3.0.0",
     "react-transition-group": "^4.1.1"
   },
